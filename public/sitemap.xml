@@ -2,14 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://happyisss608.netlify.app/2021-03-28-proposal/</loc>
+    <lastmod>2021-03-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/elements/</loc>
+    <loc>https://happyisss608.netlify.app/categories/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>http://example.org/posts/</loc>
+    <loc>https://happyisss608.netlify.app/posts/2020-12-01-r-rmarkdown/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://happyisss608.netlify.app/tags/plot/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>http://example.org/</loc>
+    <loc>https://happyisss608.netlify.app/posts/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/categories/r/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/tags/r-markdown/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/tags/regression/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/tags/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
+  </url><url>
+    <loc>https://happyisss608.netlify.app/elements/</loc>
   </url>
 </urlset>
