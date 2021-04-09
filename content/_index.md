@@ -1,6 +1,6 @@
 ---
 background: images/bg.jpg
-description: A great human
-fa: far fa-smile
-title: What makes the world happy
+description: For The Lazies
+fa: fas fa-chart-line
+title: Stock Analysis & Forecasting
 ---
