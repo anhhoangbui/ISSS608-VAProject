@@ -1,5 +1,5 @@
 ---
-title: Technical Analysis
+title: Analysis
 author: ''
 date: '2021-04-09'
 slug: []
