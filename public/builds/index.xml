@@ -33,7 +33,8 @@ A Forecasting WorkflowThe process of producing forecasts for time series data i
       <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://happyisss608.netlify.app/builds/2021-03-29-eda/</guid>
-      <description>1.0 OverviewCorrelation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coeficient of 0.0 shows no linear relationship between the two variables.</description>
+      <description>1. OverviewThis post is served as a sub-module of Visual Analytics project. I aim to leverage on the time series analysis techniques and interactivity approaches in R to present the possible visualizations of US Market stocks.
+Throughout this exercise, I mainly use the “tidyverse”, “tidyquant”  and “timetk”  packages in R to explore the patterns of the stock prices and the transaction volumes.</description>
     </item>
     
   </channel>
