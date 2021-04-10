@@ -1,6 +1,6 @@
 ---
 title: Technical Analysis
-author: ''
+author: 'Evelyn Phang'
 date: '2021-04-09'
 slug: []
 categories: []
