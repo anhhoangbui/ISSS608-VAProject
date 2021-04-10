@@ -22,7 +22,9 @@
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://happyisss608.netlify.app/builds/2021-04-09-forecast/</guid>
-      <description>1.0 OverviewCorrelation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coeficient of 0.0 shows no linear relationship between the two variables.</description>
+      <description>This report details the exploration of modeltime
+A Forecasting WorkflowThe process of producing forecasts for time series data in general can be broken down into a few steps.
+Data preparation (tidy): Before any time series forecasting can be done, the core requirement that needs to be satisfied is getting historical data. After which the data must be prepared to get the correct format.</description>
     </item>
     
     <item>
