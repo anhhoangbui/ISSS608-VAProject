@@ -13,7 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Author : Evelyn Phang
 
-Focus of this report : Visualisations for Stock Performance ( leveraging **TidyQuant** Package) 
+Focus of this report : Visualisations for Stock Performance ( leveraging **TidyQuant** Package). 
+Distill Blog : https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/
 
 ## 1.Background
 
@@ -36,10 +37,10 @@ This assignment explores the features of TidyQuant to experiment what is  best o
 
 After some research,the following 3 charts provide the most information for the beginner trader to study a **single stock**:
 
-* 1) Price Movement - Candlesticks Chart 
+* 1) Price Movement - Candlesticks Chart/BarCharts
   + This chart reflect the impact of investor sentiment on security prices and are used by technical analysts to determine when to enter and exit trades. 
 
-* 2) Stock Price and Trading Volume - Line Charts/Bart Charts
+* 2) Stock Price and Trading Volume - Line Charts
   + This chart provide the the volumes have been in the past and what they are currently before making a decision.
 
 * 3) Moving averages (15-day, 50-day and 200-day) on a particular stock price movement- 
