@@ -2,37 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Builds on Our Project Web Site</title>
-    <link>https://happyisss608.netlify.app/builds/</link>
+    <link>https://isss608stock.netlify.app/builds/</link>
     <description>Recent content in Builds on Our Project Web Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://happyisss608.netlify.app/builds/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Analysis</title>
-      <link>https://happyisss608.netlify.app/builds/2021-04-09-technical-analysis/</link>
-      <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://happyisss608.netlify.app/builds/2021-04-09-technical-analysis/</guid>
-      <description>1.0 OverviewCorrelation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coeficient of 0.0 shows no linear relationship between the two variables.</description>
-    </item>
-    
+    <lastBuildDate>Fri, 09 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://isss608stock.netlify.app/builds/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Forecast</title>
+<<<<<<< HEAD
       <link>https://happyisss608.netlify.app/builds/2021-04-09-forecast/</link>
+=======
+      <link>https://isss608stock.netlify.app/builds/2021-04-09-forecast/</link>
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://happyisss608.netlify.app/builds/2021-04-09-forecast/</guid>
+      <guid>https://isss608stock.netlify.app/builds/2021-04-09-forecast/</guid>
       <description>This report details the exploration of modeltime
 A Forecasting WorkflowThe process of producing forecasts for time series data in general can be broken down into a few steps.
 Data preparation (tidy): Before any time series forecasting can be done, the core requirement that needs to be satisfied is getting historical data. After which the data must be prepared to get the correct format.</description>
     </item>
     
     <item>
+      <title>Technical Analysis</title>
+      <link>https://isss608stock.netlify.app/builds/2021-04-09-technical-analysis/</link>
+>>>>>>> 5a0b5e7f78f41f7a98c2330928b1b514582aff67
+      <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://isss608stock.netlify.app/builds/2021-04-09-technical-analysis/</guid>
+      <description>1.BackgroundMany investors analyze stocks based on their fundamentals such as their revenue, valuation, or industry trends but fundamental factors aren’t always reflected in the market price.
+Technical analysis using charts help to identify trading signals and price patterns, and provides as a window into market psychology to identify opportunities to profit.
+Project Group Scope : provides various tools for a beginner investor,to analyse stocks past performance and forecasting with 3 parts:</description>
+    </item>
+    
+    <item>
+      <title>Technical Analysis</title>
+      <link>https://happyisss608.netlify.app/builds/2021-04-09-technical-analysis/</link>
+      <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://happyisss608.netlify.app/builds/2021-04-09-technical-analysis/</guid>
+      <description>1.BackgroundMany investors analyze stocks based on their fundamentals such as their revenue, valuation, or industry trends but fundamental factors aren’t always reflected in the market price.
+Technical analysis using charts help to identify trading signals and price patterns, and provides as a window into market psychology to identify opportunities to profit.
+Project Group Scope : provides various tools for a beginner investor,to analyse stocks past performance and forecasting with 3 parts:</description>
+    </item>
+    
+    <item>
       <title>EDA</title>
-      <link>https://happyisss608.netlify.app/builds/2021-03-29-eda/</link>
+      <link>https://isss608stock.netlify.app/builds/2021-03-29-eda/</link>
       <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://happyisss608.netlify.app/builds/2021-03-29-eda/</guid>
+      <guid>https://isss608stock.netlify.app/builds/2021-03-29-eda/</guid>
       <description>1. OverviewThis post is served as a sub-module of Visual Analytics project. I aim to leverage on the time series analysis techniques and interactivity approaches in R to present the possible visualizations of US Market stocks.
 Throughout this exercise, I mainly use the “tidyverse”, “tidyquant”  and “timetk”  packages in R to explore the patterns of the stock prices and the transaction volumes.</description>
     </item>
