@@ -18,32 +18,12 @@ Throughout this exercise, I mainly use the “tidyverse”, “tidyquant”, “
     </item>
     
     <item>
-      <title>Forecast</title>
-      <link>https://isss608stock.netlify.app/builds/2021-04-09-forecast/</link>
-      <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://isss608stock.netlify.app/builds/2021-04-09-forecast/</guid>
-      <description>A Forecasting WorkflowTime series forecasting with ModeltimeDashboard designReferenceThis report details the exploration of using modeltime for stock forecasting
-A Forecasting WorkflowLet’s first take a look at the standard process of producing forecasts for time series data and the common R packages which are used for each step of the workflow.
-Data preparation (tidy): Before any time series forecasting can be done, the core requirement that needs to be satisfied is getting historical data.</description>
-    </item>
-    
-    <item>
       <title>Technical Analysis</title>
-      <link>https://isss608stock.netlify.app/builds/2021-04-09-technical-analysis/</link>
-      <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
+      <link>https://isss608stock.netlify.app/builds/2021-04-11-technical-analysis/</link>
+      <pubDate>Sun, 11 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://isss608stock.netlify.app/builds/2021-04-09-technical-analysis/</guid>
+      <guid>https://isss608stock.netlify.app/builds/2021-04-11-technical-analysis/</guid>
       <description>1.Background2. Objective/Layout of this assignment3. Literature Review - Why TidyQuant (Tidy Quantitative Financial Analysis)3.1 TidyQuant - Charting3.2 TidyQuant - Portfolio Analysis4. Loading and Preping Data : Single Stock and Multiple Stock analysis5.Testing and Prototyping - Single Stock Analysis ( Using APPLE stock)5.1 Candlestick Chart5.2 Stock Price/TradingVolume/Returns6. Charting for Multiple Securities6.1 Multiple securities -Closing prices6.2 Multiple securities -Moving averages for multiple stocks at once6.</description>
-    </item>
-    
-    <item>
-      <title>Proposal</title>
-      <link>https://isss608stock.netlify.app/2021-03-28-proposal/</link>
-      <pubDate>Sun, 28 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://isss608stock.netlify.app/2021-03-28-proposal/</guid>
-      <description>1.0 OverviewCorrelation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coeficient of 0.0 shows no linear relationship between the two variables.</description>
     </item>
     
   </channel>

@@ -103,7 +103,7 @@ data %>%
   plot_time_series(date, adjusted,
                    .color_var = year(date),  
                    .facet_ncol = 2,
-                   .interactive = F,
+                   .interactive = T,
                    .y_intercept = 0,
                    .title = "Stocks Price",
                    # .x_lab = "Date",
@@ -127,7 +127,7 @@ data %>%
   plot_time_series(date, volume, 
                    .facet_vars   = contains("symbol"),
                    .title = "Transaction Volume",
-                   .facet_ncol = 2, .interactive = F, .y_intercept = 0)
+                   .facet_ncol = 2, .interactive = T, .y_intercept = 0)
 ```
 
 
@@ -142,7 +142,7 @@ data %>%
     date, .by = "week",
     meanadjusted = mean(adjusted)
     ) %>%
-  plot_time_series(date, meanadjusted, .interactive = F, .y_intercept = 0)
+  plot_time_series(date, meanadjusted, .interactive = T, .y_intercept = 0)
 ```
 
 
@@ -159,12 +159,12 @@ data %>%
     date, .by = "month",
     meanadjusted = mean(adjusted)
     ) %>%
-  plot_time_series(date, meanadjusted, .interactive = F, .y_intercept = 0)
+  plot_time_series(date, meanadjusted, .interactive = T, .y_intercept = 0)
 ```
 
 
 
-### Scatterplot of the stock price   
+### Interactive scatterplot of the stock price   
 
 Here, I choose Johnson & Johnson as an example.
 
@@ -179,13 +179,13 @@ ts_plot(JNJ,
         Xtitle = "Date",
         Ytitle = "Price",
         color = "blue",
-        slider = F,
+        slider = TRUE,
         Xgrid = TRUE,
         Ygrid = TRUE)
 ```
 
 
-### Scatterplot of the stock volume   
+### Interactive scatterplot of the stock volume   
 
 Here, I illustrate with Apple Inc. stock.
 
@@ -201,7 +201,7 @@ ts_plot(apple,
         Xtitle = "Date",
         Ytitle = "Volume",
         color = "pink",
-        slider = F,
+        slider = TRUE,
         Xgrid = TRUE,
         Ygrid = TRUE)
 ```
@@ -218,7 +218,7 @@ jpmorgan <- data %>%
   filter(symbol == "JPM")
 
 jpmorgan %>%
-plot_time_series(date, adjusted, .color_var = year(date), .interactive = F)
+plot_time_series(date, adjusted, .color_var = year(date), .interactive = T)
 ```
 
 ### Assesse its ACF and PACF  
