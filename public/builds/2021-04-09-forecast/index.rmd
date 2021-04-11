@@ -129,10 +129,25 @@ model_fit_arima <- arima_reg() %>%
 
 model_fit_arima
 ```
+For the purpose of this report, the forecast of 
+
+```{r message=FALSE, warning=FALSE}
+model_table_temp <- modeltime_table(
+  model_fit_arima) %>%
+  update_model_description(1, "ARIMA")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
+
+```
 
 Similarly, we use `modeltime` to create and train a Prophet model
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 workflow_fit_prophet <- workflow() %>%
   add_model(
     prophet_reg() %>% set_engine("prophet")
@@ -141,6 +156,20 @@ workflow_fit_prophet <- workflow() %>%
   fit(training(splits))
 
 workflow_fit_prophet
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_prophet) %>%
+  update_model_description(1, "PROPHET")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
+
 ```
 
 Using the new features, we can start creating and training machine learning models, starting with linear regression model. Setting the `mixture` variable will allow us to configure the model to be Ridge, Lasso or ElasticNet. Here, we'll use ElasticNet for our experiment.
@@ -155,6 +184,18 @@ workflow_fit_glmnet <- workflow() %>%
   fit(training(splits))
 ```
 
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_glmnet) %>%
+  update_model_description(1, "ElasticNet")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
+```
 
 A random forest model can be setup similarly to the linear regression model. <Parameters>
 
@@ -166,6 +207,19 @@ workflow_fit_rf <- workflow() %>%
   add_model(model_spec_rf) %>%
   add_recipe(recipe_spec_parsnip) %>%
   fit(training(splits))
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_rf) %>%
+  update_model_description(1, "Random Forest")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
 ```
 
 Model for XGBoost
@@ -181,14 +235,22 @@ workflow_fit_xgboost <- workflow() %>%
 workflow_fit_xgboost
 ```
 
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_xgboost) %>%
+  update_model_description(1, "XGBoost")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
+```
+
 The last machine learning model to be tested is SVM
 
-```{r}
-model_spec_svm <- svm_rbf() %>% 
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>%
-  translate()
-  
+```{r message=FALSE, warning=FALSE}
 workflow_fit_svm <- workflow() %>%
   add_model(
     svm_rbf() %>% 
@@ -197,6 +259,19 @@ workflow_fit_svm <- workflow() %>%
   ) %>%
   add_recipe(recipe_spec_parsnip) %>%
   fit(training(splits))
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_svm) %>%
+  update_model_description(1, "SVM")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
 ```
 
 Boosted ARIMA model
@@ -209,6 +284,19 @@ workflow_fit_arima_boosted <- workflow() %>%
   ) %>%
   add_recipe(recipe_spec) %>%
   fit(training(splits))
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_arima_boosted) %>%
+  update_model_description(1, "ARIMA Boosted")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
 ```
 
 A hybrid model of Prophet and XGBoost is also supported by `modeltime`
@@ -225,6 +313,19 @@ workflow_fit_prophet_boost <- workflow() %>%
   fit(training(splits))
 
 workflow_fit_prophet_boost
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+model_table_temp <- modeltime_table(
+  workflow_fit_prophet_boost) %>%
+  update_model_description(1, "Prophet Boosted")
+
+calibration_table_temp <- model_table_temp %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table_temp %>%
+  modeltime_forecast(actual_data = stock_tbl) %>%
+  plot_modeltime_forecast(.interactive = TRUE)
 ```
 
 Once all the models have been fitted, they will be added into a Model Table using `modeltime_table` for an easy way to visualize and evaluate the performance of the models as well as do forecasting on all models at once.
