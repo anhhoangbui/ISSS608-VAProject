@@ -59,13 +59,13 @@ for (p in packages){
   }
   library(p,character.only = T)
 }
-
 ```
 
 
 ### Loading and preprocessing the data
 
 One of the objective of the application is to make it stock-agnostic, meaning we can use the application with any stock and not just any specific symbol. For the purpose of this report, we will be using Apple's stock (AAPL).
+
 
 ```{r message=FALSE, warning=FALSE}
 stock <- tq_get("AAPL", get = "stock.prices", from = " 2021-01-01")
@@ -86,14 +86,15 @@ stock_tbl
 
 Plotting the stock's historical data.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 stock_tbl %>%
   plot_time_series(date, value, .interactive = TRUE)
+
 ```
 
 Split the data, using the data from the last 3 weeks as validation data.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 splits <- stock_tbl %>%
   time_series_split(assess = "3 weeks", cumulative = TRUE)
 
@@ -145,7 +146,7 @@ model_fit_arima <- arima_reg() %>%
 
 For the purpose of this report, we'll immediately plot the forecast for each model using the code chunk below (the code is hidden for subsequent models). However, the usual process is to combine all the fitted model into a Modeltime Table and perform forecasting together. Once all the models have been setup, we will do the combination in a later step.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   model_fit_arima) %>%
   update_model_description(1, "ARIMA")
@@ -177,7 +178,7 @@ workflow_fit_prophet <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_prophet) %>%
   update_model_description(1, "PROPHET")
@@ -206,7 +207,7 @@ workflow_fit_glmnet <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_glmnet) %>%
   update_model_description(1, "ElasticNet")
@@ -238,7 +239,7 @@ workflow_fit_rf <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_rf) %>%
   update_model_description(1, "Random Forest")
@@ -267,7 +268,7 @@ workflow_fit_xgboost <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_xgboost) %>%
   update_model_description(1, "XGBoost")
@@ -299,7 +300,7 @@ workflow_fit_svm <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_svm) %>%
   update_model_description(1, "SVM")
@@ -327,7 +328,7 @@ workflow_fit_arima_boosted <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_arima_boosted) %>%
   update_model_description(1, "ARIMA Boosted")
@@ -357,7 +358,7 @@ workflow_fit_prophet_boost <- workflow() %>%
   fit(training(splits))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 model_table_temp <- modeltime_table(
   workflow_fit_prophet_boost) %>%
   update_model_description(1, "Prophet Boosted")
@@ -408,20 +409,20 @@ calibration_table
 
 Once the models have been calibrated, we can start plotting the forecasted values for all models and evaluate their accuracy/error using the `table_modeltime_accuracy` function.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 calibration_table %>%
   modeltime_forecast(actual_data = stock_tbl) %>%
   plot_modeltime_forecast(.interactive = TRUE)
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 calibration_table %>%
   modeltime_accuracy() %>%
   table_modeltime_accuracy(.interactive = FALSE)
 ```
 The final step is to refit the models to the full dataset using `modeltime_refit` and forecast them forward.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, out.width="100%"}
 calibration_table %>%
   modeltime_refit(stock_tbl) %>%
   modeltime_forecast(h = "2 weeks", actual_data = stock_tbl) %>%

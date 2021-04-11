@@ -174,18 +174,16 @@ Here, I choose Johnson & Johnson as an example.
 
 
 ```{r message=FALSE, warning=FALSE}
-JNJ <- data %>%
+data %>%
   filter(symbol == "JNJ") %>%
-  select("date", "adjusted")
-  
-ts_plot(JNJ,
-        title = "Johnson and Johnson",
-        Xtitle = "Date",
-        Ytitle = "Price",
-        color = "blue",
-        slider = F,
-        Xgrid = TRUE,
-        Ygrid = TRUE)
+  select("date", "adjusted") %>%
+  ggplot(aes(x = date, y = adjusted))+
+    geom_line(color="red")+
+    geom_point(color = "green1", size = 0.1)+
+    labs(x="Date", y="Price (USD)")+
+    ggtitle("Price of Johnson & Johnson") +
+    theme_minimal()
+
 ```
 
 
@@ -196,18 +194,16 @@ Here, I illustrate with Apple Inc. stock.
 
 
 ```{r message=FALSE, warning=FALSE}
-apple <- data %>%
+data %>%
   filter(symbol == "AAPL") %>%
-  select("date", "volume")
-  
-ts_plot(apple,
-        title = "Apple Inc.",
-        Xtitle = "Date",
-        Ytitle = "Volume",
-        color = "pink",
-        slider = F,
-        Xgrid = TRUE,
-        Ygrid = TRUE)
+  select("date", "volume")%>%
+  ggplot(aes(x = date, y = volume))+
+    geom_line(color="cyan2")+
+    geom_point(color = "firebrick", size = 0.1)+
+    labs(x="Date", y=" Transaction Volume ")+
+    ggtitle("Transaction volume of Apple Inc.") +
+    theme_minimal()
+
 ```
 
 # 4. Stationize the data
