@@ -28,7 +28,7 @@ Let's first take a look at the standard process of producing forecasts for time 
 - **Plot the data (visualize)**: Once data are collected and processed, the next essential step in understanding the data is Visualization. By visually examining the data, we can spot common patterns and trends, which will in turn help us specify an appropriate model. This step of the workflow will be handled by the Explorer module of our Shiny application through the use the `timetk` package.
 - **Define a model (specify)**: There are many different time series models that can be used for forecasting. Choosing an appropriate model for the data is essential for producing appropriate forecasts. It is generally a good idea to try out and compare a few different models before specifying a certain model for forecasting. Traditional time series forecasting models such as ARIMA, Exponential smoothing state space model (ETS) and Time series linear model (TSLM) are available through the `forecast` package, which has now been deprecated and replaced by the `fable` package. Machine learning models can deployed using the `tidymodels` framework with its' machine learning focused packages and toolkit.
 - **Train the model (estimate)**: Models will have to be fitted into the time series before it can carry out any forecasting. The process usually involves one or more parameters which must be estimated using the known historical data. The parameters often differs between models and packages, requiring the forecaster to understand the syntax of each model to perform the modeling.
-- **Check model performance (evaluate)**: The performance of the model can only be properly evaluated after the data for the forecast period have become available. A number of methods have been developed to help in assessing the accuracy of forecasts
+- **Check model performance (evaluate)**: The performance of the model can only be properly evaluated after the data for the forecast period have become available. A number of methods have been developed to help in assessing the accuracy of forecasts.
 - **Produce forecasts (forecast)**: Once a model has been evaluated and selected as the best model with its parameters estimated, the model should then be refitted with the entire data being forecasted forward.
 
 #### A Visual Analytics Application
@@ -429,6 +429,16 @@ calibration_table %>%
 ```
 
 ## Dashboard design
+
+![](/images/forecast_sketch.png){width=100%}
+
+**Notable features**:
+
+* Stock selection: the application will allow the user select the stock they want to forecast from the dropdown list.
+* Horizon selection: users will be able to define the forecasting horizon. It's still to be decided whether the field will have some fixed values or will it be a free text field.
+* Differencing: a checkbox to configure whether the stock data should go through differencing before being trained and forecasted.
+* Model selection and Dynamic UI: depending on which model is selected in the Model field, the Dynamic UI section will display the configurable parameters of the selected model. This will enable users to fine tune their models to get the desired result. Once the parameters have been set, clicking on the retrain model will re-fit all the models and update the line charts on the right.
+* Train & Forecast: the chart for training and the chart for forecast will be on 2 different sub-tabs. This will preserve the screen real-estate while allowing users to quickly swap back and forth between training and forecasting.
 
 ## Reference
 - Hyndman, R.J., & Athanasopoulos, G. (2021) Forecasting: principles and practice, 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. Accessed on April 7th 2021.
