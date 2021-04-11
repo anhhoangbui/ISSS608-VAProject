@@ -292,7 +292,8 @@ This could be explained by the Covid-19 factor too. Investors rushed to sell off
 
 > From the 3rd observation, we should display the stock's transaction volume data as well as price data in the final Shiny App as both can tell some meaningful insights.
 
-+ The differencing technique can be used as pre-processing step to make the time series data stationary for further modeling.
++ The differencing technique can be used as pre-processing step to make the time series data stationary for further
+modeling.
 
 > From the 4th observation, we can present the stationized plots (ACF and PACF charts) along with a little explanations.
 
