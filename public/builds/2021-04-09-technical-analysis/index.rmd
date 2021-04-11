@@ -1,15 +1,25 @@
 ---
-title: Technical Analysis
-author: ''
+title: Technical Analysis 
+author: 'Evelyn Phang'
 date: '2021-04-09'
 slug: []
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Author : Evelyn Phang
+
+Focus of this report : Visualisations for Stock Performance ( leveraging **TidyQuant** Package). 
+
+Distill Blog : https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/
 
 ## 1.Background
 
@@ -18,51 +28,38 @@ Many investors analyze stocks based on their fundamentals such as their revenue,
 **Technical analysis** using charts help to identify trading signals and price patterns, and provides as a window into market psychology to identify opportunities to profit.
 
 Project Group Scope : provides various tools for a ***beginner*** investor,to analyse stocks past performance and forecasting with 3 parts:   
-1)Forecasting ( leveraging **ModelTime** package)   
-2)Visualisations for Stock Performance ( leveraging **TidyQuant** Package)  
-3)Extensive Time Series analysis ( leveraging **TimeTK**)  
-
-** I will be covering part 2).**
-
+1. Forecasting ( leveraging **ModelTime** package)   
+2. Visualisations for Stock Performance ( leveraging **TidyQuant** Package)  
+3. Extensive Time Series analysis ( leveraging **TimeTK**)  
 
 ## 2. Objective/Layout of this assignment
-
 This assignment explores the features of TidyQuant to experiment what is  best of the user, and also to identify any gaps that an eventually Shiny App implementation can adderss to improve the user's experience.
-
 
 After some research,the following 3 charts provide the most information for the beginner trader to study a **single stock**:
 
-* 1) Price Movement - Candlesticks Chart 
-  + This chart reflect the impact of investor sentiment on security prices and are used by technical analysts to determine when to enter and exit trades. 
-
-* 2) Stock Price and Trading Volume - Line Charts/Bart Charts
-  + This chart provide the the volumes have been in the past and what they are currently before making a decision.
-
-* 3) Moving averages (15-day, 50-day and 200-day) on a particular stock price movement- 
-  + This chart provides information about the moving average. For Liquid/Volatile stocks may benefit from shorter (eg.15-day) moving average analysis where as illiquid stocks my be examined with 50-day moving average.
-
+1. Price Movement - Candlesticks Chart/BarCharts
+    + This chart reflect the impact of investor sentiment on security prices and are used by technical analysts to determine when to enter and exit trades. 
+2. Stock Price and Trading Volume - Line Charts
+    + This chart provide the the volumes have been in the past and what they are currently before making a decision.
+3. Moving averages (15-day, 50-day and 200-day) on a particular stock price movement- 
+    + This chart provides information about the moving average. For Liquid/Volatile stocks may benefit from shorter (eg.15-day) moving average analysis where as illiquid stocks my be examined with 50-day moving average.
 
 After some research, the typical four charts that is useful for a trader to analysis of **group of stocks** or **portfolio** :
-
-* 1)Closing prices
-
-* 2)Moving Average
-
-* 3)Bollinger Bands
-
-* 4)Annual Returns
-
+- Closing prices
+- Moving Average
+- Bollinger Bands
+- Annual Returns
 
 ## 3. Literature Review - Why TidyQuant (Tidy Quantitative Financial Analysis)
 
 <center>
-![](tidyquant1.png){width=30%}
+![](/images/tidyquant1.png){width=30%}
 
 </center>
 
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 # Loads tidyquant, lubridate, xts, quantmod, TTR, and PerformanceAnalytics
 
 packages <- c('tidyverse','tidyquant','lubridate','xts','quantmod','TTR','PerformanceAnalytics')
@@ -79,16 +76,16 @@ for (p in packages){
 TidyQuant addresses a few gaps that in the existing quantitative analysis functions (QAF).
 
 * GAP-1
-  + Existing Quantitative analysis functions (QAF) -such as xts, zoo, quantmod, TTR, and PerformanceAnalytics work with time-series objects. These objects do not work well with the  data frames or the tidyverse workflow.
+    + Existing Quantitative analysis functions (QAF) -such as xts, zoo, quantmod, TTR, and PerformanceAnalytics work with time-series objects. These objects do not work well with the  data frames or the tidyverse workflow.
 * SOLUTION- 1
-  +TidyQuant addresses this by providing a wrapper to enabling seamless usage within the tidyverse workflow.
+    + TidyQuant addresses this by providing a wrapper to enabling seamless usage within the tidyverse workflow.
 
 * GAP-2: Existing QAF functions for Stock Analysis do not provide any easy to use functions to load stock information and stock indices.
-  + SOLUTION-2 : TidyQuant addresses this by implementing the following functions :Get a Stock Index, tq_index(), or a Stock Exchange, tq_exchange(): Returns the stock symbols and various attributes for every stock in an index or exchange. Eighteen indexes and three exchanges are available. To get Quantitative Data, tq_get()is implemented to provide a one-stop shop to get data from various web-sources.
+* SOLUTION-2 : TidyQuant addresses this by implementing the following functions :Get a Stock Index, tq_index(), or a Stock Exchange, tq_exchange(): Returns the stock symbols and various attributes for every stock in an index or exchange. Eighteen indexes and three exchanges are available. To get Quantitative Data, tq_get()is implemented to provide a one-stop shop to get data from various web-sources.
 
 
 * GAP-3 : PerformanceAnalytics package consolidates functions to compute many of the most widely used performance metrics. 
-  + SOLUTION -3 : Tidyquant integrates this functionality so it can be used at scale using the split, apply, combine framework within the tidyverse. Two primary functions integrate the performance analysis functionality:
+* SOLUTION -3 : Tidyquant integrates this functionality so it can be used at scale using the split, apply, combine framework within the tidyverse. Two primary functions integrate the performance analysis functionality:
     - tq_performance implements the performance analysis functions in a tidy way, enabling scaling analysis using the split, apply, combine framework
     - tq_portfolio provides a useful tool set for aggregating a group of individual asset returns into one or many portfolios.
 
@@ -124,7 +121,7 @@ The ***Performance Analytics*** package in TidyQuant consolidates functions to c
 
 Tidyquant provides a function tq_get for directly loading data. For the purpose of this assignment i use this funciton to get the data for APPLE, AMAZON, FACEBOOK< GOOGLE, NETFLIX. To preapre for a multi-stock analysis evaluation, i also built combined data set.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL <- tq_get("AAPL", get = "stock.prices", from = "2011-01-01", to = "2021-03-31")
 AMZN <- tq_get("AMZN", get = "stock.prices", from = "2011-01-01", to = "2021-03-31")
 GOOG <- tq_get("GOOG",get = "stock.prices", from = "2011-01-01", to = "2021-03-31")
@@ -133,13 +130,13 @@ FB <- tq_get("FB",get = "stock.prices", from = "2011-01-01", to = "2021-03-31")
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 FAANG<- rbind(FB,AAPL,AMZN,NFLX,GOOG)
 ```
 
 Setup the End Data for review as last day in March of 2021
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 end <- as_date("2021-03-31")
 ```
 
@@ -150,7 +147,7 @@ end <- as_date("2021-03-31")
 
 #### 5.1.1 Candlestick Chart- Complete Period 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_candlestick(aes(open = open, high = high, low = low, close = close)) +
@@ -163,7 +160,7 @@ AAPL %>%
 
 #### 5.1.2 Candlestick Chart- Zooming into a 6 week window.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_candlestick(aes(open = open, high = high, low = low, close = close)) +
@@ -179,7 +176,7 @@ AAPL %>%
 
 #### 5.1.3 Candlestick Chart- Zooming into 1 week
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_candlestick(aes(open = open, high = high, low = low, close = close)) +
@@ -198,7 +195,7 @@ AAPL %>%
  
 The colors can be modified using colour_up and colour_down, which control the line color, and fill_up and fill_down, which control the rectangle fills.Using RED and GREEN - makes it very clear for the user.. which is the 'danger' candlestick.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_candlestick(aes(open = open, high = high, low = low, close = close),
@@ -219,7 +216,7 @@ AAPL %>%
 
 Price Bar Chart - Each bar typically shows open, high, low, and closing (OHLC) prices. Bar charts are very similar to candlestick charts. The two chart types show the same information but in different ways. A bar chart is composed of a vertical line with small horizontal lines on the left and right that show the open and close. Candlesticks also have a vertical line showing the high and low of the period (called a shadow or wick), but the difference between the open and close is represented by a thicker portion called a real body. The body is shaded in or colored red if the close is below the open. The body is white or green if the close is above the open. While the information is the same, the visual look of the two chart types is different.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_barchart(aes(open = open, high = high, low = low, close = close)) +
@@ -235,7 +232,7 @@ AAPL %>%
 #### 5.1.6 Price BarChart- for 4 weeks - zoomed in
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_barchart(aes(open = open, high = high, low = low, close = close),
@@ -257,7 +254,7 @@ Exploring the varies ways to visualize Price/TradingVolume/Returns/Moving Averag
 
 #### 5.2.1 Price Line Chart- for the full period
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_line() +
@@ -271,7 +268,7 @@ AAPL %>%
 We can use the **geom_segment()** function to chart daily volume, which uses xy points for the beginning and end of the line. Using the aesthetic color argument, we color based on the value of volume to make these data stick out.
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = volume)) +
     geom_segment(aes(xend = date, yend = 0, color = volume)) + 
@@ -287,7 +284,7 @@ AAPL %>%
 
 And, we can zoom in on a specific region. Using scale_color_gradient we can quickly visualize the high and low points, and using geom_smooth we can see the trend.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 start <- end - weeks(24)
 
 AAPL %>%
@@ -307,7 +304,7 @@ AAPL %>%
 
 Showing monthly return for single stock
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 tq_get(c("AAPL"), get="stock.prices") %>%
   tq_transmute(select=adjusted,
                mutate_fun=periodReturn,
@@ -343,7 +340,7 @@ For exploration : We will visualize the SMA, EMA.
 
 Charting the 50-day and 200-day simple moving average using the SMA funciton as an example.We apply the moving average geoms after the candlestick geom to overlay the moving averages on top of the candlesticks. We add two moving average calls, one for the 50-day and the other for the 200-day. We add color = "red" and linetype = 5 to distinguish the 200-day from the 50-day.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_candlestick(aes(open = open, high = high, low = low, close = close)) +
@@ -360,7 +357,7 @@ AAPL %>%
 ##### 5.2.5.2 Charting Exponential Moving Average (EMA)
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close)) +
     geom_barchart(aes(open = open, high = high, low = low, close = close)) +
@@ -380,7 +377,7 @@ WHy Bollinger Bands - Bollinger Bands are used to visualize volatility by plotti
 
 ##### 5.2.5.4.1 Applying BBands using a SMA
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AAPL %>%
     ggplot(aes(x = date, y = close, open = open,
                high = high, low = low, close = close)) +
@@ -396,7 +393,7 @@ AAPL %>%
 
 Modifying the appearance of Bollinger Bands
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 AAPL %>%
     ggplot(aes(x = date, y = close, open = open,
@@ -424,18 +421,18 @@ The main fucntion here is to use **facet_wrap** to visualize multiple stocks at 
 
 #### 6.1.1 Multiple securities - closing prices - in a Timeseries Line Chart
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 tq_get(c("GOOG","AMZN","FB","AAPL","NFLX"),get="stock.prices") %>%
   ggplot(aes(date, close, color=symbol)) +
   geom_line()
 ```
 #### 6.1.2 Multiple securities - closing prices - in Facet
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 start <- end - weeks(6)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 FAANG %>%
     filter(date >= start - days(2 * 15)) %>%
     ggplot(aes(x = date, y = close, group = symbol)) +
@@ -452,7 +449,7 @@ FAANG %>%
 
 Experimenting with plotting multiple moving averages. 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 start <- end - weeks(6)
 
 FAANG %>%
@@ -472,7 +469,7 @@ FAANG %>%
 ***KEY LEARNING*** : It doesn't make sense to plot multiple moving average days in one combined visual.. as the lines are too close to visualize.
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 start <- end - weeks(6)
 
 FAANG %>%
@@ -495,7 +492,7 @@ FAANG %>%
 This is to try out the **geom_bbands**  and **facet_wrap**  functions.
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 start <- end - weeks(24)
 FAANG %>%
     filter(date >= start - days(2 * 20)) %>%
@@ -516,7 +513,7 @@ FAANG %>%
 
 #### 6.4.1 Multiple Stocks in a one line chart
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 tq_get(c("GOOGL","AMZN","FB","AAPL","NFLX"), get="stock.prices") %>%
   group_by(symbol) %>%
   tq_transmute(select=adjusted,
@@ -534,7 +531,7 @@ tq_get(c("GOOGL","AMZN","FB","AAPL","NFLX"), get="stock.prices") %>%
 
 This is to try out the  **tq_transmute**  function.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 FAANG_annual_returns <- FAANG %>%
     group_by(symbol) %>%
     tq_transmute(select     = adjusted, 
@@ -544,7 +541,7 @@ FAANG_annual_returns <- FAANG %>%
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 FAANG_annual_returns %>%
     ggplot(aes(x = date, y = yearly.returns, fill = symbol)) +
     geom_col() +
@@ -561,7 +558,7 @@ FAANG_annual_returns %>%
 
 #### 6.5.1 Portfolio Returns
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 stock_returns_monthly <- c("AAPL", "GOOG", "NFLX","FB","AMZN") %>%
     tq_get(get  = "stock.prices",
            from = "2010-01-01",
@@ -594,7 +591,7 @@ portfolio_returns_monthly %>%
 
 #### 6.5.2 Portfolio Growth
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 wts <- c(0.2,0.2,0.2,0.2,0.2)
 portfolio_growth_monthly <- stock_returns_monthly %>%
     tq_portfolio(assets_col   = symbol, 
@@ -628,7 +625,7 @@ To visualize multiple portfolios, we just  need to configure the WEIGHTs table, 
 15% AAPL, 50% GOOG, 25% NFLX, 5% FB,5% AMZN
 15% AAPL, 25% GOOG, 40% NFLX, 10% FB,10% AMZN
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 weights <- c(
     0.2, 0.25, 0.25,0.2,0.1,
     0.10, 0.40, 0.3,0.1,0.1,
@@ -673,7 +670,7 @@ portfolio_growth_monthly_multi %>%
 
 ### 6.6.1 GGPLOT - Exploration of Log Scale vs Continous Scale on Y for stock prices
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 AMZN %>%
     ggplot(aes(x = date, y = adjusted)) +
     geom_line(color = palette_light()[[1]]) + 
@@ -683,7 +680,8 @@ AMZN %>%
          y = "Closing Price", x = "") + 
     theme_tq()
 ```
-```{r}
+
+```{r message=FALSE, warning=FALSE}
 AMZN %>%
     ggplot(aes(x = date, y = adjusted)) +
     geom_line(color = palette_light()[[1]]) + 
@@ -695,7 +693,7 @@ AMZN %>%
 ```
 ### 6.6.2 GGPLOT - Plotting Regression trendlines with geom_smooth
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 AMZN %>%
     ggplot(aes(x = date, y = adjusted)) +
@@ -712,7 +710,7 @@ AMZN %>%
 
 #### 6.6.3.1 Testing with Dark Theme and thin lines
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 n_mavg <- 50 # Number of periods (days) for moving average
 FAANG %>%
     filter(date >= start - days(2 * n_mavg)) %>%
@@ -728,7 +726,7 @@ FAANG %>%
     scale_color_tq(theme = "dark") +
     scale_y_continuous(labels = scales::dollar)
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 n_mavg <- 50 # Number of periods (days) for moving average
 FAANG %>%
     filter(date >= start - days(2 * n_mavg)) %>%
@@ -746,7 +744,7 @@ FAANG %>%
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 n_mavg <- 50 # Number of periods (days) for moving average
 FAANG %>%
     filter(date >= start - days(2 * n_mavg)) %>%
@@ -772,7 +770,7 @@ A interactive implementation of the above would be able to bring much better use
   a)Candle-stick is clearer for the user to read then barchart
 
   b)Facets provide possiblity to read the details per stock ( when comparing a portofolio of stocks ) and should be        provided as an additional option in addition to the typical 'one chart '.
-  
+  blog
   c)The default theme 'white' is much clearer than the fancier color schemes such as grey/green.
   
   d)THe log-scale for y-axis eg. for stock prices although allowing more to be captured, can be misleading and is not    recommended to be used for stock prices- especially for intepreting trends.
@@ -795,7 +793,7 @@ With an interactive visualisation, the user is able to see more detail about the
 
 ## 8.0 Possible SHiny App Story Board for Stock Analysis
 
-![Origina](targetshiny.jpg)
+![Origina](/images/targetshiny.jpg){width=100%}
 
 
 ## 9.0 References

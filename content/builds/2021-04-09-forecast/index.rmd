@@ -5,20 +5,24 @@ date: '2021-04-09'
 slug: []
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-*This report details the exploration of `modeltime`*
+*This report details the exploration of using `modeltime` for stock forecasting*
 
 ## A Forecasting Workflow
-The process of producing forecasts for time series data in general can be broken down into a few steps.
+Let's first take a look at the standard process of producing forecasts for time series data and the common R packages which are used for each step of the workflow.
 
-```{r, echo=F, out.width = "100%"}
-knitr::include_graphics("images/workflow-1.png")
-```
+<center>
+![](/images/workflow-1.png)
+</center>
 
 - **Data preparation (tidy)**: Before any time series forecasting can be done, the core requirement that needs to be satisfied is getting historical data. After which the data must be prepared to get the correct format. Lucky for us, since the focus of our application is on stock analysis and forecasting, the retrieval of stock's historical data can be easily done with the use of packges such as `tidyquant` or `quantmod`. No pre-processing is needed as the data will already be in a cleaned format.
 - **Plot the data (visualize)**: Once data are collected and processed, the next essential step in understanding the data is Visualization. By visually examining the data, we can spot common patterns and trends, which will in turn help us specify an appropriate model. This step of the workflow will be handled by the Explorer module of our Shiny application through the use the `timetk` package.
@@ -29,12 +33,11 @@ knitr::include_graphics("images/workflow-1.png")
 
 #### A Visual Analytics Application
 - The *Visualize*, *Specify*, *Estimate* and *Evaluate* steps form an iterative process which requires the forecaster to perform repeated cycles of calculated trial and error in order to achieve a good result. The Shiny Visual Analytics Application (VAA) will utilize graphs to explore the data, analyze the validity of the models fitted and present the forecasting results. By providing the user with an interface to tune and visualize models, the application will enable forecasters to easily experiment with different algorithms without the need to write codes and scripts.
-- 
 
 #### Benefits of `modeltime`
-- Integrate closely with the `tidyverse` collection of packages, particularly `modeltime` lets user taps into the machine learning ecosystem of `tidymodels`, particularly the `parsnip` models.
+- Integrate closely with the `tidyverse` collection of packages, particularly `modeltime` lets user taps into the machine learning ecosystem of `tidymodels` through the use of `parsnip` models.
 - Evaluation, combining multiple models
-- Use 
+- Plots created by `modeltime` are either ggplot2 for non-interactive plots or plotly for interactive plots, making it easy to do additional configuration such as themes and legends. 
 - easily create a plethora of forecasting models by combining modeltime and parsnip
 - Hybrid models 
 
@@ -58,11 +61,11 @@ for (p in packages){
 }
 ```
 
-#### Loading the data
+#### Loading and preprocessing the data
 
 The objective is to make the application stock agnostic, meaning we can use the application with any stock and not just any specific ticker. For the purpose of this report, we will be using Apple's stock (AAPL)
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 stock <- tq_get("AAPL", get = "stock.prices", from = " 2020-01-01")
 ```
 
@@ -70,7 +73,7 @@ We're only interested in the closing price from the start of this year, 2021
 
 Data preprocessing, including doing differencing on the data to remove the trends and the time series data
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 stock_tbl <- stock %>%
   select(date, close) %>%
   filter(date >= "2021/01/01") %>%
@@ -99,9 +102,8 @@ splits %>%
   plot_time_series_cv_plan(date, value, .interactive = TRUE)
 ```
 
-Since the date column is meaningless to the machine learning models, some features engineering are required to convert the data format. THis can be done using the `step_timeseries_signature` from `modeltime`, which returns a `recipe` object. With it, we can perform additional `recipe` functions such as Removing unused columns and creating dummy variables for categorical features
+The machine learning models from `parsnip` can't process the *Date* column as is, hence, some features engineering are required to convert the data to the correct format. This can be done using the `step_timeseries_signature` from `modeltime`, which returns a `recipe` object. With it, we can perform additional `recipe` functions such as removing unused columns and creating dummy variables for categorical features. Note that for `parsnip` models, the role of the *Date* column needs to be converted to "ID" while `modeltime` can use the *Date* column as a predictor so we'll create 2 recipes to be used, depending on the model.
 
-Parsnip models need to convert Date column to ID
 
 ```{r message=FALSE, warning=FALSE}
 recipe_spec <- recipe(value ~ date, training(splits)) %>%
@@ -109,7 +111,6 @@ recipe_spec <- recipe(value ~ date, training(splits)) %>%
   step_rm(contains("am.pm"), contains("hour"), contains("minute"),
           contains("second"), contains("xts"), contains("half"),
           contains(".iso")) %>%
-  #step_mutate(value = replace_na(value, 0)) %>%
   step_normalize(date_index.num) %>%
   #step_fourier(date, period = 365, K = 5) %>%
   step_dummy(all_nominal())
@@ -120,7 +121,17 @@ recipe_spec_parsnip <- recipe_spec %>%
 bake(recipe_spec %>% prep(), new_data = NULL)
 ```
 
-Creating and fit an ARIMA model using `modeltime`
+#### Models creation and training
+
+Let's create and fit our first model - ARIMA, using `modeltime`. Below are the possible parameters which we will expose on the final Shiny application for users to configure.
+- seasonal_period: The periodic nature of the seasonality. Uses "auto" by default.
+- non_seasonal_ar: The order of the non-seasonal auto-regressive (AR) terms.
+- non_seasonal_differences: The order of integration for non-seasonal differencing.
+- non_seasonal_ma: The order of the non-seasonal moving average (MA) terms.
+- seasonal_ar: The order of the seasonal auto-regressive (SAR) terms.
+- seasonal_differences: The order of integration for seasonal differencing.
+- seasonal_ma: The order of the seasonal moving average (SMA) terms.
+
 
 ```{r message=FALSE, warning=FALSE}
 model_fit_arima <- arima_reg() %>%
@@ -129,7 +140,8 @@ model_fit_arima <- arima_reg() %>%
 
 model_fit_arima
 ```
-For the purpose of this report, the forecast of 
+
+For the purpose of this report, we'll immediately plot the forecast for each model using the code chunk below (the code is hidden for subsequent models). However, the usual process is to combine all the fitted model into a Modeltime Table and perform forecasting together. Once all the models have been setup, we will do the combination in a later step.
 
 ```{r message=FALSE, warning=FALSE}
 model_table_temp <- modeltime_table(
@@ -145,7 +157,11 @@ calibration_table_temp %>%
 
 ```
 
-Similarly, we use `modeltime` to create and train a Prophet model
+Similar to the ARIMA model, we use `modeltime` to create and train a Prophet model. Possible paramters to be exposed on Shiny app are:
+- growth: String 'linear' or 'logistic' to specify a linear or logistic trend.
+- changepoint_num: Number of potential changepoints to include for modeling trend.
+- changepoint_range: Range changepoints that adjusts how close to the end the last changepoint can be located.
+- season: 'additive' (default) or 'multiplicative'.
 
 ```{r message=FALSE, warning=FALSE}
 workflow_fit_prophet <- workflow() %>%
@@ -172,7 +188,7 @@ calibration_table_temp %>%
 
 ```
 
-Using the new features, we can start creating and training machine learning models, starting with linear regression model. Setting the `mixture` variable will allow us to configure the model to be Ridge, Lasso or ElasticNet. Here, we'll use ElasticNet for our experiment.
+Next, we can start creating our machine learning models, starting with a linear regression model. Setting the `mixture` variable will allow us to configure the model to be Ridge, Lasso or ElasticNet. Here, we'll use ElasticNet for our experiment. The `penalty` parameter can be used to set the regularization amount.
 
 ```{r}
 model_spec_glmnet <- linear_reg(penalty = 0.01, mixture = 0.5) %>%
@@ -197,7 +213,11 @@ calibration_table_temp %>%
   plot_modeltime_forecast(.interactive = TRUE)
 ```
 
-A random forest model can be setup similarly to the linear regression model. <Parameters>
+A random forest model can be setup similarly to the linear regression model. The arguments for this model are:
+- mtry: The number of predictors that will be randomly sampled at each split when creating the tree models.
+- trees: The number of trees contained in the ensemble.
+- min_n: The minimum number of data points in a node that are required for the node to be split further.
+
 
 ```{r}
 model_spec_rf <- rand_forest(trees = 500, min_n = 50) %>%
@@ -222,7 +242,9 @@ calibration_table_temp %>%
   plot_modeltime_forecast(.interactive = TRUE)
 ```
 
-Model for XGBoost
+The model for XGBoost has similar arguments to the Random Forest model, with the addition of:
+- tree_depth: The maximum depth of the tree (i.e. number of splits).
+- learn_rate: The rate at which the boosting algorithm adapts from iteration-to-iteration.
 
 ```{r}
 workflow_fit_xgboost <- workflow() %>%
@@ -248,7 +270,11 @@ calibration_table_temp %>%
   plot_modeltime_forecast(.interactive = TRUE)
 ```
 
-The last machine learning model to be tested is SVM
+The last machine learning model to be tested is a radial basis function support vector machines (SVM RBF) model, with the following parameters to be exposed on Shiny app:
+- cost: The cost of predicting a sample within or on the wrong side of the margin.
+- rbf_sigma: The precision parameter for the radial basis function.
+- margin: The epsilon in the SVM insensitive loss function (regression only)
+
 
 ```{r message=FALSE, warning=FALSE}
 workflow_fit_svm <- workflow() %>%
@@ -333,15 +359,21 @@ Once all the models have been fitted, they will be added into a Model Table usin
 ```{r}
 model_table <- modeltime_table(
   model_fit_arima,
-  workflow_fit_arima_boosted,
   workflow_fit_prophet,
-  workflow_fit_prophet_boost,
-  #model_fit_ets,
   workflow_fit_glmnet,
   workflow_fit_rf,
+  workflow_fit_xgboost,
   workflow_fit_svm,
-  workflow_fit_xgboost
-) 
+  workflow_fit_arima_boosted,
+  workflow_fit_prophet_boost) %>%
+  update_model_description(1, "ARIMA") %>%
+  update_model_description(2, "Prophet") %>%
+  update_model_description(3, "ElasticNet") %>%
+  update_model_description(4, "Random Forest") %>%
+  update_model_description(5, "XGBoost") %>%
+  update_model_description(6, "SVM") %>%
+  update_model_description(7, "ARIMA Boosted") %>%
+  update_model_description(8, "Prophet Boosted")
 
 model_table
 ```

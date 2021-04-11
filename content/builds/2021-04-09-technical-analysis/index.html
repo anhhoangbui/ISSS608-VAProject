@@ -5,59 +5,83 @@ date: '2021-04-09'
 slug: []
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 3
 ---
 
-<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#background">1.Background</a></li>
+<li><a href="#objectivelayout-of-this-assignment">2. Objective/Layout of this assignment</a></li>
+<li><a href="#literature-review---why-tidyquant-tidy-quantitative-financial-analysis">3. Literature Review - Why TidyQuant (Tidy Quantitative Financial Analysis)</a><ul>
+<li><a href="#tidyquant---charting">3.1 TidyQuant - Charting</a></li>
+<li><a href="#tidyquant---portfolio-analysis">3.2 TidyQuant - Portfolio Analysis</a></li>
+</ul></li>
+<li><a href="#loading-and-preping-data-single-stock-and-multiple-stock-analysis">4. Loading and Preping Data : Single Stock and Multiple Stock analysis</a></li>
+<li><a href="#testing-and-prototyping---single-stock-analysis-using-apple-stock">5.Testing and Prototyping - Single Stock Analysis ( Using APPLE stock)</a><ul>
+<li><a href="#candlestick-chart">5.1 Candlestick Chart</a></li>
+<li><a href="#stock-pricetradingvolumereturns">5.2 Stock Price/TradingVolume/Returns</a></li>
+</ul></li>
+<li><a href="#charting-for-multiple-securities">6. Charting for Multiple Securities</a><ul>
+<li><a href="#multiple-securities--closing-prices">6.1 Multiple securities -Closing prices</a></li>
+<li><a href="#multiple-securities--moving-averages-for-multiple-stocks-at-once">6.2 Multiple securities -Moving averages for multiple stocks at once</a></li>
+<li><a href="#multiple-securities--bbands-for-multiple-stocks">6.3 Multiple securities -BBands for multiple stocks</a></li>
+<li><a href="#multiple-securities--annural-returns">6.4 Multiple securities -Annural Returns</a></li>
+<li><a href="#miscelleneous-plotting-experiementations">6.6 Miscelleneous Plotting experiementations</a></li>
+<li><a href="#ggplot---exploration-of-log-scale-vs-continous-scale-on-y-for-stock-prices">6.6.1 GGPLOT - Exploration of Log Scale vs Continous Scale on Y for stock prices</a></li>
+</ul></li>
+<li><a href="#reflection--conclusionkey-learningsbenefits-of-interactivity-in-the-shiny-app">7.0 Reflection- Conclusion/Key Learnings/Benefits of Interactivity in the Shiny App</a><ul>
+<li><a href="#interactive-user-experience-and-self-configuration-of-views">7.1 Interactive User Experience and Self Configuration of views</a></li>
+<li><a href="#finer-details---interacing-with-chart-points.">7.2 Finer details - Interacing with Chart Points.</a></li>
+</ul></li>
+<li><a href="#possible-shiny-app-story-board-for-stock-analysis">8.0 Possible SHiny App Story Board for Stock Analysis</a></li>
+<li><a href="#references">9.0 References</a></li>
+</ul>
+</div>
 
 <p>Author : Evelyn Phang</p>
-<p>Focus of this report : Visualisations for Stock Performance ( leveraging <strong>TidyQuant</strong> Package).
-Distill Blog : <a href="https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/" class="uri">https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/</a></p>
+<p>Focus of this report : Visualisations for Stock Performance ( leveraging <strong>TidyQuant</strong> Package).</p>
+<p>Distill Blog : <a href="https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/" class="uri">https://admiring-babbage-48f9ce.netlify.app/posts/2021-04-05-assignment/</a></p>
 <div id="background" class="section level2">
 <h2>1.Background</h2>
 <p>Many investors analyze stocks based on their fundamentals such as their revenue, valuation, or industry trends but fundamental factors aren’t always reflected in the market price.</p>
 <p><strong>Technical analysis</strong> using charts help to identify trading signals and price patterns, and provides as a window into market psychology to identify opportunities to profit.</p>
 <p>Project Group Scope : provides various tools for a <strong><em>beginner</em></strong> investor,to analyse stocks past performance and forecasting with 3 parts:<br />
-1)Forecasting ( leveraging <strong>ModelTime</strong> package)<br />
-2)Visualisations for Stock Performance ( leveraging <strong>TidyQuant</strong> Package)<br />
-3)Extensive Time Series analysis ( leveraging <strong>TimeTK</strong>)</p>
+1. Forecasting ( leveraging <strong>ModelTime</strong> package)<br />
+2. Visualisations for Stock Performance ( leveraging <strong>TidyQuant</strong> Package)<br />
+3. Extensive Time Series analysis ( leveraging <strong>TimeTK</strong>)</p>
 </div>
 <div id="objectivelayout-of-this-assignment" class="section level2">
 <h2>2. Objective/Layout of this assignment</h2>
 <p>This assignment explores the features of TidyQuant to experiment what is best of the user, and also to identify any gaps that an eventually Shiny App implementation can adderss to improve the user’s experience.</p>
 <p>After some research,the following 3 charts provide the most information for the beginner trader to study a <strong>single stock</strong>:</p>
-<ul>
-<li><ol style="list-style-type: decimal">
-<li>Price Movement - Candlesticks Chart/BarCharts</li>
-</ol>
+<ol style="list-style-type: decimal">
+<li>Price Movement - Candlesticks Chart/BarCharts
 <ul>
 <li>This chart reflect the impact of investor sentiment on security prices and are used by technical analysts to determine when to enter and exit trades.</li>
 </ul></li>
-<li><ol start="2" style="list-style-type: decimal">
-<li>Stock Price and Trading Volume - Line Charts</li>
-</ol>
+<li>Stock Price and Trading Volume - Line Charts
 <ul>
 <li>This chart provide the the volumes have been in the past and what they are currently before making a decision.</li>
 </ul></li>
-<li><ol start="3" style="list-style-type: decimal">
-<li>Moving averages (15-day, 50-day and 200-day) on a particular stock price movement-</li>
-</ol>
+<li>Moving averages (15-day, 50-day and 200-day) on a particular stock price movement-
 <ul>
 <li>This chart provides information about the moving average. For Liquid/Volatile stocks may benefit from shorter (eg.15-day) moving average analysis where as illiquid stocks my be examined with 50-day moving average.</li>
 </ul></li>
-</ul>
-<p>After some research, the typical four charts that is useful for a trader to analysis of <strong>group of stocks</strong> or <strong>portfolio</strong> :</p>
-<ul>
-<li><p>1)Closing prices</p></li>
-<li><p>2)Moving Average</p></li>
-<li><p>3)Bollinger Bands</p></li>
-<li><p>4)Annual Returns</p></li>
-</ul>
+</ol>
+<p>After some research, the typical four charts that is useful for a trader to analysis of <strong>group of stocks</strong> or <strong>portfolio</strong> :
+- Closing prices
+- Moving Average
+- Bollinger Bands
+- Annual Returns</p>
 </div>
 <div id="literature-review---why-tidyquant-tidy-quantitative-financial-analysis" class="section level2">
 <h2>3. Literature Review - Why TidyQuant (Tidy Quantitative Financial Analysis)</h2>
 <center>
-<p><img src="tidyquant1.png" style="width:30.0%" /></p>
+<p><img src="/images/tidyquant1.png" style="width:30.0%" /></p>
 </center>
 <pre class="r"><code># Loads tidyquant, lubridate, xts, quantmod, TTR, and PerformanceAnalytics
 
@@ -69,73 +93,23 @@ for (p in packages){
   }
   library(p, character.only=T)
 }</code></pre>
-<pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
-## v tibble  3.0.4     v dplyr   1.0.2
-## v tidyr   1.1.2     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.1</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre><code>## Loading required package: tidyquant</code></pre>
-<pre><code>## Warning: package &#39;tidyquant&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Loading required package: lubridate</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre><code>## Loading required package: PerformanceAnalytics</code></pre>
-<pre><code>## Warning: package &#39;PerformanceAnalytics&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Loading required package: xts</code></pre>
-<pre><code>## Warning: package &#39;xts&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Loading required package: zoo</code></pre>
-<pre><code>## Warning: package &#39;zoo&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;zoo&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     as.Date, as.Date.numeric</code></pre>
-<pre><code>## 
-## Attaching package: &#39;xts&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     first, last</code></pre>
-<pre><code>## 
-## Attaching package: &#39;PerformanceAnalytics&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     legend</code></pre>
-<pre><code>## Loading required package: quantmod</code></pre>
-<pre><code>## Warning: package &#39;quantmod&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Loading required package: TTR</code></pre>
-<pre><code>## Warning: package &#39;TTR&#39; was built under R version 4.0.4</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
-##   method            from
-##   as.zoo.data.frame zoo</code></pre>
-<pre><code>## == Need to Learn tidyquant? ====================================================
-## Business Science offers a 1-hour course - Learning Lab #9: Performance Analysis &amp; Portfolio Optimization with tidyquant!
-## &lt;/&gt; Learn more at: https://university.business-science.io/p/learning-labs-pro &lt;/&gt;</code></pre>
 <p>TidyQuant addresses a few gaps that in the existing quantitative analysis functions (QAF).</p>
 <ul>
 <li><p>GAP-1</p>
 <ul>
 <li>Existing Quantitative analysis functions (QAF) -such as xts, zoo, quantmod, TTR, and PerformanceAnalytics work with time-series objects. These objects do not work well with the data frames or the tidyverse workflow.</li>
 </ul></li>
-<li><p>SOLUTION- 1
-+TidyQuant addresses this by providing a wrapper to enabling seamless usage within the tidyverse workflow.</p></li>
-<li><p>GAP-2: Existing QAF functions for Stock Analysis do not provide any easy to use functions to load stock information and stock indices.</p>
+<li><p>SOLUTION- 1</p>
 <ul>
-<li>SOLUTION-2 : TidyQuant addresses this by implementing the following functions :Get a Stock Index, tq_index(), or a Stock Exchange, tq_exchange(): Returns the stock symbols and various attributes for every stock in an index or exchange. Eighteen indexes and three exchanges are available. To get Quantitative Data, tq_get()is implemented to provide a one-stop shop to get data from various web-sources.</li>
+<li>TidyQuant addresses this by providing a wrapper to enabling seamless usage within the tidyverse workflow.</li>
 </ul></li>
-<li><p>GAP-3 : PerformanceAnalytics package consolidates functions to compute many of the most widely used performance metrics.</p>
-<ul>
-<li>SOLUTION -3 : Tidyquant integrates this functionality so it can be used at scale using the split, apply, combine framework within the tidyverse. Two primary functions integrate the performance analysis functionality:
+<li><p>GAP-2: Existing QAF functions for Stock Analysis do not provide any easy to use functions to load stock information and stock indices.</p></li>
+<li><p>SOLUTION-2 : TidyQuant addresses this by implementing the following functions :Get a Stock Index, tq_index(), or a Stock Exchange, tq_exchange(): Returns the stock symbols and various attributes for every stock in an index or exchange. Eighteen indexes and three exchanges are available. To get Quantitative Data, tq_get()is implemented to provide a one-stop shop to get data from various web-sources.</p></li>
+<li><p>GAP-3 : PerformanceAnalytics package consolidates functions to compute many of the most widely used performance metrics.</p></li>
+<li><p>SOLUTION -3 : Tidyquant integrates this functionality so it can be used at scale using the split, apply, combine framework within the tidyverse. Two primary functions integrate the performance analysis functionality:</p>
 <ul>
 <li>tq_performance implements the performance analysis functions in a tidy way, enabling scaling analysis using the split, apply, combine framework</li>
 <li>tq_portfolio provides a useful tool set for aggregating a group of individual asset returns into one or many portfolios.</li>
-</ul></li>
 </ul></li>
 </ul>
 <div id="tidyquant---charting" class="section level3">
@@ -291,7 +265,6 @@ FB &lt;- tq_get(&quot;FB&quot;,get = &quot;stock.prices&quot;, from = &quot;2011
          y = &quot;Volume&quot;, x = &quot;&quot;) +
     theme_tq() +
     theme(legend.position = &quot;none&quot;) </code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="volume-chart---using-geom_segment--zoomed-into-past-50-days" class="section level4">
@@ -311,7 +284,6 @@ AAPL %&gt;%
     scale_color_gradient(low = &quot;red&quot;, high = &quot;darkblue&quot;) +
     theme_tq() + 
     theme(legend.position = &quot;none&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 #### 5.2.4 Single Stock Returns Chart - Line Chart/Time series.</p>
 <p>Showing monthly return for single stock</p>
@@ -544,10 +516,10 @@ portfolio_returns_monthly &lt;- stock_returns_monthly %&gt;%
     tq_portfolio(assets_col  = symbol, 
                  returns_col = Ra, 
                  weights     = wts, 
-                 col_rename  = &quot;Ra&quot;)</code></pre>
-<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA&#39;s
-## detected: filling NA&#39;s with zeros</code></pre>
-<pre class="r"><code>portfolio_returns_monthly %&gt;%
+                 col_rename  = &quot;Ra&quot;)
+
+
+portfolio_returns_monthly %&gt;%
     ggplot(aes(x = date, y = Ra)) +
     geom_bar(stat = &quot;identity&quot;, fill = palette_light()[[1]]) +
     labs(title = &quot;Portfolio Returns&quot;,
@@ -558,7 +530,6 @@ portfolio_returns_monthly &lt;- stock_returns_monthly %&gt;%
     theme_tq() +
     scale_color_tq() +
     scale_y_continuous(labels = scales::percent)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="portfolio-growth" class="section level4">
@@ -570,10 +541,9 @@ portfolio_growth_monthly &lt;- stock_returns_monthly %&gt;%
                  weights      = wts, 
                  col_rename   = &quot;investment.growth&quot;,
                  wealth.index = TRUE) %&gt;%
-    mutate(investment.growth = investment.growth * 10000)</code></pre>
-<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA&#39;s
-## detected: filling NA&#39;s with zeros</code></pre>
-<pre class="r"><code>portfolio_growth_monthly %&gt;%
+    mutate(investment.growth = investment.growth * 10000)
+
+portfolio_growth_monthly %&gt;%
     ggplot(aes(x = date, y = investment.growth)) +
     geom_line(size = 1.5, color = palette_light()[[1]]) +
     labs(title = &quot;Portfolio Growth&quot;,
@@ -584,7 +554,6 @@ portfolio_growth_monthly &lt;- stock_returns_monthly %&gt;%
     theme_tq() +
     scale_color_tq() +
     scale_y_continuous(labels = scales::dollar)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 <div id="visualizing-multiple-portfolios" class="section level4">
@@ -607,34 +576,19 @@ weights_table &lt;-  tibble(stocks) %&gt;%
     group_by(portfolio)
 
 stock_returns_monthly_multi &lt;- stock_returns_monthly %&gt;%
-    tq_repeat_df(n = 3)</code></pre>
-<pre><code>## Ungrouping data frame groups: symbol</code></pre>
-<pre class="r"><code>portfolio_growth_monthly_multi &lt;- stock_returns_monthly_multi %&gt;%
+    tq_repeat_df(n = 3)
+
+portfolio_growth_monthly_multi &lt;- stock_returns_monthly_multi %&gt;%
     tq_portfolio(assets_col   = symbol, 
                  returns_col  = Ra, 
                  weights      = weights_table, 
                  col_rename   = &quot;investment.growth&quot;,
                  wealth.index = TRUE) %&gt;%
-    mutate(investment.growth = investment.growth * 10000)</code></pre>
-<pre><code>## Warning: Problem with `mutate()` input `portfolio..`.
-## i NA&#39;s detected: filling NA&#39;s with zeros
-## i Input `portfolio..` is `purrr::pmap(list(returns.., weights.., portfolio), custom_function)`.
-## i The error occurred in group 1: portfolio = 1.</code></pre>
-<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA&#39;s
-## detected: filling NA&#39;s with zeros</code></pre>
-<pre><code>## Warning: Problem with `mutate()` input `portfolio..`.
-## i NA&#39;s detected: filling NA&#39;s with zeros
-## i Input `portfolio..` is `purrr::pmap(list(returns.., weights.., portfolio), custom_function)`.
-## i The error occurred in group 2: portfolio = 2.</code></pre>
-<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA&#39;s
-## detected: filling NA&#39;s with zeros</code></pre>
-<pre><code>## Warning: Problem with `mutate()` input `portfolio..`.
-## i NA&#39;s detected: filling NA&#39;s with zeros
-## i Input `portfolio..` is `purrr::pmap(list(returns.., weights.., portfolio), custom_function)`.
-## i The error occurred in group 3: portfolio = 3.</code></pre>
-<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA&#39;s
-## detected: filling NA&#39;s with zeros</code></pre>
-<pre class="r"><code>portfolio_growth_monthly_multi %&gt;%
+    mutate(investment.growth = investment.growth * 10000)
+
+
+
+portfolio_growth_monthly_multi %&gt;%
     ggplot(aes(x = date, y = investment.growth, color = factor(portfolio))) +
     geom_line(size = 1) +
     labs(title = &quot;Portfolio Growth&quot;,
@@ -646,7 +600,6 @@ stock_returns_monthly_multi &lt;- stock_returns_monthly %&gt;%
     theme_tq() +
     scale_color_tq() +
     scale_y_continuous(labels = scales::dollar)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 </div>
 </div>
@@ -683,7 +636,6 @@ stock_returns_monthly_multi &lt;- stock_returns_monthly %&gt;%
          subtitle = &quot;Log Scale, Applying Linear Trendline&quot;, 
          y = &quot;Adjusted Closing Price&quot;, x = &quot;&quot;) + 
     theme_tq()</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 #### 6.6.3 Tidyquant Themes</p>
 <div id="testing-with-dark-theme-and-thin-lines" class="section level4">
@@ -741,8 +693,9 @@ FAANG %&gt;%
 <h2>7.0 Reflection- Conclusion/Key Learnings/Benefits of Interactivity in the Shiny App</h2>
 <p>A interactive implementation of the above would be able to bring much better user experience. Based on experimenting with various formats, graph and chart options i think :</p>
 <p>a)Candle-stick is clearer for the user to read then barchart</p>
-<p>b)Facets provide possiblity to read the details per stock ( when comparing a portofolio of stocks ) and should be provided as an additional option in addition to the typical ‘one chart’.</p>
-<p>c)The default theme ‘white’ is much clearer than the fancier color schemes such as grey/green.</p>
+<p>b)Facets provide possiblity to read the details per stock ( when comparing a portofolio of stocks ) and should be provided as an additional option in addition to the typical ‘one chart’.
+blog
+c)The default theme ‘white’ is much clearer than the fancier color schemes such as grey/green.</p>
 <p>d)THe log-scale for y-axis eg. for stock prices although allowing more to be captured, can be misleading and is not recommended to be used for stock prices- especially for intepreting trends.</p>
 <div id="interactive-user-experience-and-self-configuration-of-views" class="section level3">
 <h3>7.1 Interactive User Experience and Self Configuration of views</h3>
@@ -761,7 +714,7 @@ FAANG %&gt;%
 <div id="possible-shiny-app-story-board-for-stock-analysis" class="section level2">
 <h2>8.0 Possible SHiny App Story Board for Stock Analysis</h2>
 <div class="figure">
-<img src="targetshiny.jpg" alt="" />
+<img src="/images/targetshiny.jpg" style="width:100.0%" alt="" />
 <p class="caption">Origina</p>
 </div>
 </div>
