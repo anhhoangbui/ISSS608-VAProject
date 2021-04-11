@@ -1,5 +1,5 @@
 ---
-title: Technical Analysis
+title: Technical Analysis -Exploring Tidy Quant and ggplot2 (Evelyn Phang)
 author: 'Evelyn Phang'
 date: '2021-04-09'
 slug: []
@@ -10,6 +10,8 @@ tags: []
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Focus of this report : Visualisations for Stock Performance ( leveraging **TidyQuant** Package) 
 
 ## 1.Background
 
@@ -22,7 +24,7 @@ Project Group Scope : provides various tools for a ***beginner*** investor,to an
 2)Visualisations for Stock Performance ( leveraging **TidyQuant** Package)  
 3)Extensive Time Series analysis ( leveraging **TimeTK**)  
 
-** I will be covering part 2).**
+ 
 
 
 ## 2. Objective/Layout of this assignment
