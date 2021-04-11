@@ -1,5 +1,5 @@
 ---
-title: Technical Analysis:Exploring Tidy Quant and ggplot2 (Evelyn Phang)
+title: Technical Analysis 
 author: 'Evelyn Phang'
 date: '2021-04-09'
 slug: []
@@ -10,6 +10,8 @@ tags: []
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Author : Evelyn Phang
 
 Focus of this report : Visualisations for Stock Performance ( leveraging **TidyQuant** Package) 
 
