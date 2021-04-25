@@ -9,6 +9,12 @@ output:
   blogdown::html_page:
     toc: true
     toc_depth: 2
+  pdf_document:
+    highlight: pygments
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+    keep_tex: yes
 ---
 
 
@@ -73,13 +79,13 @@ output:
 <ol start="4" style="list-style-type: decimal">
 <li>Select the Stock you wish to analyze by clicking on the radio button</li>
 </ol>
-<p><img src="images/ta_guide2.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/ta_guide2.png" width="40%" style="display: block; margin: auto;" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Click Different Radio buttons to see the different stocks for the same chart</li>
 <li>If you want to view different charts for the same stock just select a different chart from the “Single Stock Analysis-Charts”.</li>
 <li>To Zoom into different date periods for the same stock, adjust the date range.</li>
 </ol>
-<p><img src="images/ta_guide3.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/ta_guide3.png" width="40%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="portfolio-analysis" class="section level2">
 <h2>Portfolio Analysis</h2>
@@ -90,7 +96,7 @@ output:
 <li>Select the Start and End Date for the analysis of your portfolio stocks- this will only affect some of the charts.</li>
 <li>Select from the drop down menu -up to 4 stocks you want to show in one chart</li>
 </ol>
-<p><img src="images/ta_guide45.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="images/ta_guide45.png" width="30%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>After choosing up to 4 stocks, you can select any 4 charts to view all stocks performance together by selecting from the drop down menu on the - Portfolio Analysis – Charts. There are 4 possible charts:
 <ul>
@@ -110,7 +116,7 @@ output:
 <li>The weights are relative and DO NOT need to add up to 1.</li>
 <li>There is a 4th stock “JP MORGON” which was given a weightage of 0, this will NOT be included in my portfolio charting.</li>
 </ol>
-<p><img src="images/ta_guide7.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="images/ta_guide7.png" width="30%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Next chose the chart you want to view for your portfolio values:
 <ol style="list-style-type: lower-roman">
@@ -124,7 +130,7 @@ output:
 <h1>Forecast</h1>
 <div id="data-preprocessing" class="section level3">
 <h3>Data preprocessing</h3>
-<p><img src="images/fore_guide1.PNG" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="images/fore_guide1.PNG" width="30%" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li>In the parameters section, select one of the stock from the pre-defined list or type in another stock symbol to add it to the list.</li>
 <li>Choose of date range to query the stock or leave it as is, which is defaulted to 100 days of historical data.</li>
@@ -138,7 +144,7 @@ output:
 <div id="parameters-tuning" class="section level3">
 <h3>Parameters Tuning</h3>
 <p>The Forecast module allows user to fine tune each of the 8 available forecasting models. To do so:</p>
-<p><img src="images/fore_guide2.PNG" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/fore_guide2.PNG" width="30%" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li>Click on the <code>Parameters Tuning</code> bar to expand the tuning section and hide the preprocessing section.</li>
 <li>Select a model with the <code>Model</code> parameter, which will shows the corresponding parameters of the model below.</li>

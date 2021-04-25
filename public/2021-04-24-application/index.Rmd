@@ -1,0 +1,18 @@
+---
+title: Application
+author: ''
+date: '2021-04-23'
+slug: []
+categories: []
+tags: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![](/images/SSA-app.png){width=100%}
+
+[The Simple Stock Analyzer application is available at here](https://anhhoangbui.shinyapps.io/ISSS608VAStock/)
+
+[Project GitHub Repository](https://github.com/anhhoangbui/ISSS608-VAProject)

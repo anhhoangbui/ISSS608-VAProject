@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Simple Stock Analyzer Using R and Shiny</title>
+
+<script src="VAAPoster_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+
+
+<!--
+Font-awesome icons ie github or twitter
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+
+<!--
+Google fonts api stuff
+-->
+<link href='https://fonts.googleapis.com/css?family=Special Elite' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Rasa' rel='stylesheet'>
+
+<!--
+Here are the required style attributes for css to make this poster work :)
+-->
+<style>
+@page {
+size: 36in 48in;
+margin: 0;
+padding: 0;
+}
+body {
+margin: 0px;
+padding: 0px;
+width: 36in;
+height: 48in;
+text-align: justify;
+font-size: 46px;
+line-height: 1.05;
+}
+/* RMarkdown Class Styles */
+/* center align leaflet map,
+from https://stackoverflow.com/questions/52112119/center-leaflet-in-a-rmarkdown-document */
+.html-widget {
+margin: auto;
+position: sticky;
+margin-top: 2cm;
+margin-bottom: 2cm;
+}
+.leaflet.html-widget.html-widget-static-bound.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+position: sticky;
+width: 100%;
+}
+pre.sourceCode.r {
+background-color: #dddddd40;
+border-radius: 4mm;
+padding: 4mm;
+width: 75%;
+margin: auto;
+margin-top: 1em;
+margin-bottom: 1em;
+/* align-items: center; */
+}
+code.sourceCode.r{
+background-color: transparent;
+font-size: 20pt;
+border-radius: 2mm;
+}
+code {
+font-size: 25pt;
+font-family: monospace;
+background-color: #febf6324;
+color: #3282b8;
+padding: 1.2mm;
+line-height: 1;
+border-radius: 2mm;
+}
+caption {
+margin-bottom: 10px;
+font-size: 40px;
+font-style: italic;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #febf6320;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+  border-spacing: 0;
+  font-size: 40%;
+  border-style: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 1em;
+  padding-left: 1em;
+  line-height: 1em;
+}
+table {
+  margin: auto;
+}
+th {
+  padding-left: 5mm;
+  padding-right: 5mm;
+}
+.caption {
+font-size: 40px;
+font-style: italic;
+padding-top: 0;
+}
+.references {
+font-size: 20px;
+line-height: 90%;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+float: left;
+padding: 0px;
+}
+.outer {
+width: 36in;
+height: calc(48in *  (1 - 0.1 - 0.1 - 0.01) );
+-webkit-column-count: 3; /* Chrome, Safari, Opera */
+-moz-column-count: 3; /* Firefox */
+column-count: 3;
+-webkit-column-fill: auto;
+-moz-column-fill: auto;
+column-fill: auto;
+column-gap: 0;
+padding-left: 0cm;
+padding-right: 0cm;
+/* -webkit-column-rule-width: 50%;
+-moz-column-rule-width: 50%;
+column-rule-width: 50%; */
+-webkit-column-rule-style: none;
+-moz-column-rule-style: none;
+column-rule-style: none;
+-webkit-column-rule-color: black;
+-moz-column-rule-color: black;
+column-rule-color: black;
+background-color: #ffffff;
+font-family: Rasa;
+margin-top: calc(48in *  0.1 );
+padding-top: 1em;
+padding-bottom: 1em;
+}
+span.citation {
+  color: #febf63;
+  font-weight: bold;
+}
+a {
+text-decoration: none;
+color: #febf63;
+}
+#title {
+font-size: 80pt;
+text-align: left;
+margin: 0;
+line-height: 98%;
+border-bottom: 0;
+font-weight: normal;
+background: 0;
+}
+#author {
+color: #3282b8;
+margin: 0;
+line-height: 85%;
+font-size: 80;
+}
+#affiliation {
+padding-top: 0.1em;
+color: ;
+font-style: italic;
+font-size: 80;
+margin: 0;
+}
+sup {
+color: #cc0000;
+}
+.affiliation sup {
+font-size: 20px;
+}
+.author {
+text-align: left;
+}
+.author sup {
+font-size: 30px;
+}
+.author_extra {
+color: #febf63;
+margin: 0;
+line-height: 85%;
+font-size: 35px;
+text-align: left;
+}
+.outer h1, h2, h3, h4, h5, h6 {
+text-align: center;
+margin: 0;
+font-weight: bold;
+}
+.section h1 {
+  text-align:center;
+  padding-bottom:5px;
+  background:
+    linear-gradient(
+      to left,
+      #ffffff 1%,
+      #ffffff 20%,
+      #3282b875 33%,
+      #3282b8 50%,
+      #3282b875 66%,
+      #ffffff 80%,
+      #ffffff 99%
+    )
+    left
+    bottom
+    #ffffff
+    no-repeat;
+  background-size:100% 5px ;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.outer h2 {
+text-align: center;
+}
+.outer p, .level2 {
+color: #000000;
+}
+.outer ol {
+padding-left: 8%;
+padding-right: 8%;
+text-align: left;
+}
+.main {
+width: 36in;
+height: calc(48in * 0.1);
+position: absolute;
+background-color: #3282b8;
+color: #ffffff90;
+font-family: Special Elite;
+background-image: linear-gradient(#3282b8 50%,#febf63);
+}
+.main strong {
+color: #ffffff;
+}
+.main strong > sup {
+color: #ffffff;
+}
+.main sup {
+color: #ffffff90;
+}
+#main-img-left {
+width: 10%;
+left: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+#main-img-center {
+width: 10%;
+left: calc(36in * 0.45);
+bottom: 0.5in;
+position: absolute;
+}
+#main-img-right {
+width: 10%;
+right: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+.main p {
+font-size: 100px;
+font-family: Special Elite;
+text-align: center;
+margin: 0;
+position: absolute;
+top: 50%;
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+margin-left: 1em;
+}
+.fab {
+color: #00000030;
+font-size: 25px;
+}
+.twitter, i {
+color: #00000030;
+font-size: 35px;
+text-decoration: none;
+}
+a.email {
+text-decoration: none;
+color: #00000030;
+font-size: 35px;
+}
+.envelope {
+color: #00000030;
+font-size: 5px;
+text-decoration: none;
+}
+.poster_wrap {
+width: 36in;
+height: 48in;
+padding: 0cm;
+}
+.main_bottom {
+width: 36in;
+height: calc(48in * 0.1);
+margin-top: calc(48in * (1 - 0.1));
+position: absolute;
+background-color: #3282b8;
+background-image: linear-gradient(#febf63 10%, #3282b8);
+}
+.section {
+  padding-left: 5mm;
+  padding-right: 5mm;
+}
+span > #tab:mytable {
+  font-weight: bold;
+}
+.orcid img {
+  width: 3%;
+}
+.emphasis {
+  background-color: #008080;
+  color: #ffffff;
+  border: solid #0b2045 3mm;
+  margin: 1em;
+  padding-left: 0;
+  padding-right: 0;
+}
+.emphasis h1 {
+  font-weight: bold;
+  background: none;
+  background-color: #0b2045;
+  padding-bottom: 5mm;
+  padding-top: 1mm;
+  margin-top: -1mm;
+  margin-right: -1mm;
+  margin-left: -1mm;
+}
+.emphasis blockquote {
+  border: 0;
+}
+.emphasis ol {
+  padding: 0;
+  padding-left: 8%;
+  font-size: 100%;
+  font-weight: bold;
+}
+.emphasis p {
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+
+<div class="poster_wrap">
+
+<div class="column outer">
+<div class="section">
+<h1 id="title">Simple Stock Analyzer Using R and Shiny</h1><br>
+<h3 id="author" class="author">
+
+  </h3>
+
+<h5 id="author_extra", class="author_extra">
+Huang Ling<sup>1</sup>
+ Evelyn Phang<sup>1</sup>
+ Bui Anh Hoang<sup>1</sup>
+</h5>
+
+
+<p id="affiliation" class="affiliation">
+<sup>1</sup> Singapore Management Universtiy , MITB, ISSS608
+</p>
+</div>
+
+<style type="text/css">
+.poster_wrap .main_bottom img{
+height: 900;
+}
+main {text-align:center}
+</style>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>Comparing the performance of many stocks can be time consuming, especially if you want to do it over and over again. With the help of R, Shiny and the availability of many open-source R packages, we developed a simple stock Analyzer- to do technical analysis and forecasting of a stock portfolio.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="data/Image1.jpg" alt="Three main modules" width="100%" />
+<p class="caption">
+Figure 1: Three main modules
+</p>
+</div>
+</div>
+<div id="approach-and-design-framework" class="section level1">
+<h1>Approach and Design Framework</h1>
+<p>Our project will explore and develop an app for this using
+selected stocks from the US Stock Market.</p>
+<p><code>Exploration</code>: Exploratory Data Analysis explores the trends
+of stock prices and transaction volumes using TIME SERIES
+analysis. We select multiple stocks from different sectors and
+compare them within the same selected time period.</p>
+<p><code>Technical Analysis</code>: Many investors analyze stocks based on their fundamentals such as their revenue, valuation, or
+industry trends but fundamental factors aren’t always reflected in the market price. Technical analysis using charts
+help to identify trading signals and price patterns and provides as a window into market psychology to identify opportunities to profit. We built this with the core functions from TidyQuant[Ref.1] to support
+1. Getting Financial Data from the web<br />
+2. Manipulating Financial Data<br />
+3. Performance Analysis and Portfolio analysis</p>
+<p><code>Forecasting</code> : As a final feature, we build a forecasting flow for a stock incorporating a dashboard to train several ML models( up to 8 ) and the associated visualisation and performance matrix of the trained models, as well as the forecasts comparison for the stock.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="data/forecastprocess.jfif" alt="Forecast process" width="80%" />
+<p class="caption">
+Figure 2: Forecast process
+</p>
+</div>
+</div>
+<div id="key-output-and-features" class="section level1">
+<h1>Key Output and Features</h1>
+<p><code>EDA For Single Stocks and Portfolio of Stocks</code></p>
+<p>Exploratory Data Analysis implements a view of 4 equal sections, each showing a different types of chart.The charts can work with both single stocks, and portfolio of stocks.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="data/eda.jfif" alt="EDA Visualisation" width="100%" />
+<p class="caption">
+Figure 3: EDA Visualisation
+</p>
+</div>
+<p><code>Technical Analysis for a Single Stock</code>:</p>
+<ol style="list-style-type: decimal">
+<li>Price Movement Candlesticks Chart<br />
+</li>
+<li>Stock Price and Trading Volume Line Charts/Bart Charts<br />
+</li>
+<li>Bollingor Charts + Moving averages (15-day, 50-day) Chart</li>
+<li>Monthly and Yearly Returns</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="data/Bollingor.jpg" alt="Sample Visualisation for Single Stock" width="100%" />
+<p class="caption">
+Figure 4: Sample Visualisation for Single Stock
+</p>
+</div>
+<p><code>Technical Analysis for a Portfolio</code>:</p>
+<ol style="list-style-type: decimal">
+<li>Closing prices<br />
+</li>
+<li>Moving Average<br />
+</li>
+<li>Bollinger Bands</li>
+<li>Portfolio Monthly/Yearly Returns</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="data/Candlestickportfolio.jpg" alt="Sample Visualisation for Portfolio" width="100%" />
+<p class="caption">
+Figure 5: Sample Visualisation for Portfolio
+</p>
+</div>
+<p><code>Forecasting for A Single Stock</code></p>
+<ol style="list-style-type: decimal">
+<li>8 ML (Machine Learning )models for forecasting<br />
+</li>
+<li>Allow user to tweak the ML model parameters training and forecast parameters<br />
+</li>
+<li>Visualisation of Forecast outcomes<br />
+</li>
+<li>Output in a table of the performance of ML training and Forecast outcomes</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<img src="data/MultipleStocksForecast.jpg" alt="Sample Visualization of Forecast Model Outcomes" width="100%" />
+<p class="caption">
+Figure 6: Sample Visualization of Forecast Model Outcomes
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="data/ModelPerformance.jfif" alt="Sample Visulisation Model Performance" width="100%" />
+<p class="caption">
+Figure 7: Sample Visulisation Model Performance
+</p>
+</div>
+</div>
+<div id="learnings-and-future-work" class="section level1">
+<h1>Learnings and Future Work</h1>
+<p>One of the most difficult challenge of building this application is designing the layout of all the components of a module. The application needs to find the right balance between showing too many visualizations, which can overwhelmed the users, and showing too little, which can make it harder to draw out meaningful insights.</p>
+<p>To tackle this challenge, the use of more advanced Bootstrap features is needed, which allows the hiding and showing of different components, thus the users themselves can decide how many visualizations is suitable for them. The packages that enables these Bootstrap features are <code>shinydashboard</code> and <code>shinydashboardplus</code>.In implementing technical analysis, it was discovered that some tidy packages,lacked integration with <code>plotly</code> R package, which meant that interactivity was not possible with the chart. While convenient, there are some limitations to the <code>timetk</code> and <code>modeltime</code> packages, which can result in difficulties when trying to configure smaller details of the visualizations. In some cases, it might be better to <code>modeltime</code> purely for processing and training data purposes and plot the trained data from scratch using <code>ggplot2</code> in order to get the desired visualization</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>In conclusion,leveraging the recenlty available R packages that have specialised/built in technical functions for Financial Analysis and Shiny, we can provide to the investor a easy interface to perform stock evaluation and analysis.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>1.TidyQuant Project Website <a href="https://business-science.github.io/tidyquant/" class="uri">https://business-science.github.io/tidyquant/</a><br />
+2.Hyndman,R.J.,&amp; Athanasopoulos,G(2021)Forecasting: principles and practice,3rd edition</p>
+</div>
+
+</div>
+<div class="main">
+<p>Stock Exploration, Technical Analysis and ML Forecasting <br>- all in one application!</p>
+</div>
+<div class="main_bottom">
+<img id="main-img-left" src=data/Singapore_Management_University_logo_SMU.png>
+<img id="main-img-center" src=>
+<img id="main-img-right" src=>
+</div>
+</div>
+
+
+
+</body>
+</html>
