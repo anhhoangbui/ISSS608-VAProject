@@ -1,0 +1,159 @@
+---
+title: Manual
+author: ''
+date: '2021-04-25'
+slug: []
+categories: []
+tags: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 2
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#explore">Explore</a></li>
+<li><a href="#analysis">Analysis</a><ul>
+<li><a href="#technical-analysis">Technical Analysis</a></li>
+<li><a href="#portfolio-analysis">Portfolio Analysis</a></li>
+</ul></li>
+<li><a href="#forecast">Forecast</a></li>
+</ul>
+</div>
+
+<div id="explore" class="section level1">
+<h1>Explore</h1>
+<p><img src="images/explore_guide1.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Start by selecting up to 4 stock symbols from the pre-defined list of the <code>Select Stocks</code> field. It’s possible to query stock symbols which are not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this value</li>
+</ol>
+<p><img src="images/explore_guide2.PNG" width="40%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Select a date range of the stocks’ historical data to be explored using the <code>Date Range</code> parameter.</li>
+<li>The visualization of the Explore module is divided in 4 sections, each displaying a different type of chart: Price, Volume, Auto Correlation and Anomaly.</li>
+</ol>
+<p><img src="images/explore_guide4.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>At the top corner of each section, there is an icon to collapse the section so user can choose to hide the charts they don’t want to see.</li>
+<li>To configure each chart type, click on the cog icon at the top right corner of the chart’s section to display the sub-menu, which contains all the parameters corresponding to that particular chart type.</li>
+</ol>
+<p><img src="images/explore_guide3.PNG" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="analysis" class="section level1">
+<h1>Analysis</h1>
+<div id="technical-analysis" class="section level2">
+<h2>Technical Analysis</h2>
+<p>Use this Tab to do basic Technical Analysis of your single stock</p>
+<p><img src="images/ta_guide1.png" width="100%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Click the Tab –<Analysis > - and select the tab <Technical Analysis></li>
+<li>Select the Start and End Date for the analysis of your single stock.</li>
+<li>Select the type of chart you want to view by clicking the drop down menu. The available options are:
+<ol style="list-style-type: lower-alpha">
+<li>Basic – Closing Price - which will show the closing prices</li>
+<li>Basic - Closing – which will show the volume by day</li>
+<li>Returns – Monthly – which will show the bar chart of monthly returns and a trend line overlayed on the bar chart</li>
+<li>Returns – Yearly – which will show the yearly return for the stock since 2012</li>
+<li>Candlestick Chart – which will show the daily opening and closing prices for the stock
+<ol style="list-style-type: lower-roman">
+<li>Red Bar means the stock closed lower, then when it opened</li>
+<li>Green Bar means the stock closed higher , then when it opened</li>
+</ol></li>
+<li>Averages – Simple Moving Average ( 20 day and 50 day ), overlayed with the candlestick chart</li>
+<li>Averages – Expoential Moving Average ( 20 day and 50 day ), overlayed with the candlestick chart</li>
+<li>Averages – Expoential Moving Average ( 20 day and 50 day ), overlayed with the candlestick chart</li>
+<li>Averages – Double Expoential Moving Average ( 20 day and 50 day ), overlayed with the candlestick chart</li>
+<li>Averages – Elastic Volume-Weighted Moving Average ( 20 day and 50 day ), overlayed with the candlestick chart</li>
+<li>Simple Moving Average with Bollinger Bands</li>
+</ol></li>
+</ol>
+<div class="line-block">      As the actual mathematical and technical definition of the averages are beyond of the scope of this user guide, please visit this link to understand what they mean before analysing the chart: <a href="https://business-science.github.io/tidyquant/reference/geom_ma.html" class="uri">https://business-science.github.io/tidyquant/reference/geom_ma.html</a></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Select the Stock you wish to analyze by clicking on the radio button</li>
+</ol>
+<p><img src="images/ta_guide2.png" width="50%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Click Different Radio buttons to see the different stocks for the same chart</li>
+<li>If you want to view different charts for the same stock just select a different chart from the “Single Stock Analysis-Charts”.</li>
+<li>To Zoom into different date periods for the same stock, adjust the date range.</li>
+</ol>
+<p><img src="images/ta_guide3.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="portfolio-analysis" class="section level2">
+<h2>Portfolio Analysis</h2>
+<p>Use this tab to do basic technical analysis of your multiple stock portfolio</p>
+<p><img src="images/ta_guide4.png" width="100%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Click the Tab –<Analysis > - and select the tab <Portfolio Analysis></li>
+<li>Select the Start and End Date for the analysis of your portfolio stocks- this will only affect some of the charts.</li>
+<li>Select from the drop down menu -up to 4 stocks you want to show in one chart</li>
+</ol>
+<p><img src="images/ta_guide45.png" width="40%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>After choosing up to 4 stocks, you can select any 4 charts to view all stocks performance together by selecting from the drop down menu on the - Portfolio Analysis – Charts. There are 4 possible charts:
+<ul>
+<li>Closing Prices Line Chart</li>
+<li>Candlestick Chart- last 30 days</li>
+<li>Moving Average (Here Simple Moving Average is charted ) – last 1 year</li>
+<li>Annual Returns – Since 2012</li>
+</ul></li>
+</ol>
+<p><img src="images/ta_guide5.png" width="50%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>To review the performance of a portfolio of stocks you need to update and make three selections.</li>
+</ol>
+<p><img src="images/ta_guide6.png" width="100%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: lower-alpha">
+<li>Select the stocks you want to include in the portfolio and update the relative weights. In the example above, I wanted to include Apple/Microsoft/Bank Of America – you my portfolio analysis. I selected the weightage as 0.1, 0.1,0.1 – means that each of the stock will be about 33.3% of my portfolio. To have eg. APPLE has 50 percent of your portfolio, you will use the weights 0.2 for APPLE, and 0.1 for Microsoft &amp; Bank of America.</li>
+<li>The weights are relative and DO NOT need to add up to 1.</li>
+<li>There is a 4th stock “JP MORGON” which was given a weightage of 0, this will NOT be included in my portfolio charting.</li>
+</ol>
+<p><img src="images/ta_guide7.png" width="40%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Next chose the chart you want to view for your portfolio values:
+<ol style="list-style-type: lower-roman">
+<li>Portfolio Returns (All stocks weighted)</li>
+<li>Portfolio Growth (All Stocks weighted)</li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div id="forecast" class="section level1">
+<h1>Forecast</h1>
+<div id="data-preprocessing" class="section level3">
+<h3>Data preprocessing</h3>
+<p><img src="images/fore_guide1.PNG" width="40%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>In the parameters section, select one of the stock from the pre-defined list or type in another stock symbol to add it to the list.</li>
+<li>Choose of date range to query the stock or leave it as is, which is defaulted to 100 days of historical data.</li>
+<li>Select a training-validation split e.g. a 0.8 means the first 80% of data will be used for training and the last 20% of data will be used for validation.</li>
+<li>Set the <code>Forecast Horizon</code> parameter to configure how many days should the models forecast forward.</li>
+<li>The <code>Date Features</code>parameters can configure the types of date features to extract: either a standard date derivatives (e.g. June will be converted to 6) or perform a Fourier transformation, or both.</li>
+<li>Set a differecing lag with the <code>Differencing Lag</code> parameter. If the value is set to 0, no differecing will be done on the stock data.</li>
+<li>Click the <code>Train and Forecast</code> button to start training the forecasting with all 8 models. The process will take around 20-30 seconds.</li>
+</ol>
+</div>
+<div id="parameters-tuning" class="section level3">
+<h3>Parameters Tuning</h3>
+<p>The Forecast module allows user to fine tune each of the 8 available forecasting models. To do so:</p>
+<p><img src="images/fore_guide2.PNG" width="50%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Click on the <code>Parameters Tuning</code> bar to expand the tuning section and hide the preprocessing section.</li>
+<li>Select a model with the <code>Model</code> parameter, which will shows the corresponding parameters of the model below.</li>
+<li>Tune the models with the avaialble parameters.</li>
+<li>Click on the <code>Train and Forecast</code> button to train and forecast with all 8 models.</li>
+</ol>
+</div>
+<div id="visualization" class="section level3">
+<h3>Visualization</h3>
+<p>The main visualization section of this module contains 3 main components: Individual Models, Multiple Models and Models Performance.</p>
+<p>In the Individual Models component, it’s possible to switch between the 3 types of charts: validation, forecast and residuals by selecting one of the 3 tabs at the top of the section.</p>
+<p><img src="images/fore_guide3.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<p>The Multiple Models component also has the same 3 tabs to be selected as the individual models component. Since the multiple models charts are displaying many lines, user can hide the lines of some models by clicking on the model names in the Legend.</p>
+<p><img src="images/fore_guide4.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<p>The last component of the Forecast visualization is the Models Performance table, which can be sorted by clicking on any of the table header.</p>
+<p><img src="images/fore_guide5.PNG" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>

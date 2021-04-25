@@ -8,6 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://isss608stock.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Manual</title>
+      <link>https://isss608stock.netlify.app/2021-04-25-help/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://isss608stock.netlify.app/2021-04-25-help/</guid>
+      <description>ExploreAnalysisTechnical AnalysisPortfolio AnalysisForecastExploreStart by selecting up to 4 stock symbols from the pre-defined list of the Select Stocks field. It’s possible to query stock symbols which are not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this valueSelect a date range of the stocks’ historical data to be explored using the Date Range parameter.</description>
+    </item>
+    
+    <item>
       <title>Forecast</title>
       <link>https://isss608stock.netlify.app/builds/2021-04-11-forecast/</link>
       <pubDate>Sun, 11 Apr 2021 00:00:00 +0000</pubDate>
