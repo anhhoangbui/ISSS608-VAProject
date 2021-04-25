@@ -18,14 +18,15 @@ ui <- dashboardPage(
     dashboardHeader(
         title = tagList(
             tags$span(
-                class = "logo-mini", "BSA"
+                class = "logo-mini", "SSA"
             ),
             tags$span(
-                class = "logo-lg", "Basic Stocks Analyzer"
+                class = "logo-lg", "Simple Stocks Analyzer"
             )
         ),
+        titleWidth = 250,
         tags$li(class = "dropdown", 
-                tags$a(href = "https://isss608stock.netlify.app/#manual", 
+                tags$a(href = "https://isss608stock.netlify.app/#guide", 
                        target="_blank",
                        tags$i(class = "fas fa-question-circle"),
                        tags$span("Help"))

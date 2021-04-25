@@ -29,7 +29,7 @@ portfolioUI <- function(id) {
         title = "Parameters",
         status = "primary",
         width = 3,
-
+        
         dateRangeInput(
           ns("dates"),
           "Date range",
@@ -50,74 +50,64 @@ portfolioUI <- function(id) {
         
         
         fluidRow (
-          column (8,selectInput(
-            inputId = ns("Stock1"),
-            label   = "Stock 1 of 4",
-            choices = c("Apple" = tickers[1], 
-                        "Microsoft"= tickers[2],
-                        "Bank of America" = tickers[3],
-                        "Jp Morgan" = tickers[4],
-                        "American Airlines Group Inc" = tickers[5],
-                        "Spirit Airlines Incorporated" = tickers[6],
-                        "Johnson & Johnson" = tickers[7],
-                        "Pfzier"= tickers[8]),
-            selected = tickers[1])
+          column (8,
+                  selectizeInput(
+                    ns("stock1"),
+                    "Stock 1 of 4",
+                    choices = c("AAPL", "MSFT", "BAC", "JPM", "AAL", "SAVE",
+                                "JNJ", "PFE"),
+                    multiple = FALSE,
+                    selected = c("AAPL"),
+                    options = list(maxItems = 1, create = TRUE)
+                  )
           ),
           column (4, numericInput("s1wght", "Weightage", min = 0, max=1, value=0.0, step=0.05), style="display:inline-block")
           
         ),
         
         fluidRow (
-          column ( 8, selectInput(
-            inputId = ns("Stock2"),
-            label   = "Stock 2 of 4",
-            choices = c(
-              "Apple" = tickers[1], 
-              "Microsoft"= tickers[2],
-              "Bank of America" = tickers[3],
-              "Jp Morgan" = tickers[4],
-              "American Airlines Group Inc" = tickers[5],
-              "Spirit Airlines Incorporated" = tickers[6],
-              "Johnson & Johnson" = tickers[7],
-              "Pfzier"= tickers[8]),
-            selected = tickers[2])
+          column ( 8, 
+                   selectizeInput(
+                     ns("stock2"),
+                     "Stock 2 of 4",
+                     choices = c("AAPL", "MSFT", "BAC", "JPM", "AAL", "SAVE",
+                                 "JNJ", "PFE"),
+                     multiple = FALSE,
+                     selected = c("MSFT"),
+                     options = list(maxItems = 1, create = TRUE)
+                   )
           ),
           column ( 4, numericInput("s2wght", "Weightage", min = 0, max=1, value=0.0, step=0.05),  style="display:inline-block")
           
         ),
         
         fluidRow (
-          column ( 8, selectInput(
-            inputId = ns("Stock3"),
-            label   = "Stock 3 of 4",
-            choices = c(
-              "Apple" = tickers[1], 
-              "Microsoft"= tickers[2],
-              "Bank of America" = tickers[3],
-              "Jp Morgan" = tickers[4],
-              "American Airlines Group Inc" = tickers[5],
-              "Spirit Airlines Incorporated" = tickers[6],
-              "Johnson & Johnson" = tickers[7],
-              "Pfzier"= tickers[8]),
-            selected = tickers[3])
+          column ( 8, 
+                   selectizeInput(
+                     ns("stock3"),
+                     "Stock 3 of 4",
+                     choices = c("AAPL", "MSFT", "BAC", "JPM", "AAL", "SAVE",
+                                 "JNJ", "PFE"),
+                     multiple = FALSE,
+                     selected = c("BAC"),
+                     options = list(maxItems = 1, create = TRUE)
+                   )
           ),
           column ( 4, numericInput("s3wght", "Weightage", min = 0, max=1, value=0.0, step=0.05),  style="display:inline-block")
           
         ),
         fluidRow (
-          column ( 8, selectInput(
-            inputId = ns("Stock4"),
-            label   = "Stock 4 of 4",
-            choices = c(
-              "Apple" = tickers[1], 
-              "Microsoft"= tickers[2],
-              "Bank of America" = tickers[3],
-              "Jp Morgan" = tickers[4],
-              "American Airlines Group Inc" = tickers[5],
-              "Spirit Airlines Incorporated" = tickers[6],
-              "Johnson & Johnson" = tickers[7],
-              "Pfzier"= tickers[8]),
-            selected = tickers[4])),
+          column ( 8, 
+                   selectizeInput(
+                     ns("stock4"),
+                     "Stock 4 of 4",
+                     choices = c("AAPL", "MSFT", "BAC", "JPM", "AAL", "SAVE",
+                                 "JNJ", "PFE"),
+                     multiple = FALSE,
+                     selected = c("JPM"),
+                     options = list(maxItems = 1, create = TRUE)
+                   )
+          ),
           column ( 4, numericInput("s4wght", "Weightage", min = 0, max=1, value=0, step=0.05),  style="display:inline-block")
           
         )
@@ -141,13 +131,16 @@ portfolioUI <- function(id) {
 portfolioServer <- function(id, data, left, right) {
   moduleServer(id,
                function(input, output, session) {
+                 stocks <- reactive({
+                   tq_get(c(input$stock1,input$stock2,input$stock3,input$stock4),get="stock.prices")
+                 })
                  output$plot2<-renderPlot(
                    {
                      
                      if    (input$chartportfolio == "closingline")
                        
                      {
-                       tq_get(c(input$Stock1,input$Stock2,input$Stock3,input$Stock4),get="stock.prices") %>%
+                       stocks() %>%
                          select(symbol,date,open,close,high,low,volume)%>%
                          filter(date>=input$dates[1]) %>%
                          filter(date<=input$dates[2]) %>%
@@ -164,7 +157,7 @@ portfolioServer <- function(id, data, left, right) {
                      }
                      else if (input$chartportfolio == "closingfacet")
                      {
-                       tq_get(c(input$Stock1,input$Stock2,input$Stock3,input$Stock4),get="stock.prices") %>%
+                       stocks() %>%
                          select(symbol,date,open,close,high,low,volume)%>%
                          filter(date >= ( TODAY() - days(30))) %>%
                          ggplot(aes(x = date, y = close, group=symbol)) +
@@ -183,7 +176,7 @@ portfolioServer <- function(id, data, left, right) {
                      }
                      else if (input$chartportfolio == "ma")
                      {
-                       tq_get(c(input$Stock1,input$Stock2,input$Stock3,input$Stock4),get="stock.prices") %>%
+                       stocks() %>%
                          select(symbol,date,open,close,high,low,volume)%>%
                          filter(date >= (input$dates[1]-250)) %>%
                          filter(date <= input$dates[2]) %>%
@@ -204,12 +197,8 @@ portfolioServer <- function(id, data, left, right) {
                      }
                      else if (input$chartportfolio == "port_return")
                      {
-                       stock_returns_monthly <- c(input$Stock1,input$Stock2,input$Stock3,input$Stock4) %>%
-                         tq_get(get  = "stock.prices",
-                                from = input$dates[1],
-                                to   = input$dates[2]) %>%
+                       stock_returns_monthly <- stocks() %>%
                          group_by(symbol) %>%
-                         
                          tq_transmute(select     = adjusted, 
                                       mutate_fun = periodReturn, 
                                       period     = "monthly", 
@@ -240,9 +229,7 @@ portfolioServer <- function(id, data, left, right) {
                      }
                      else if (input$chartportfolio == "ar")
                      {
-                       Portfolio <- tq_get(c(input$Stock1,input$Stock2,input$Stock3,input$Stock4),get="stock.prices")
-                       
-                       PortfolioAnnual <- Portfolio %>%
+                       PortfolioAnnual <- stocks() %>%
                          group_by(symbol) %>%
                          tq_transmute(select     = adjusted, 
                                       mutate_fun = periodReturn, 
@@ -268,10 +255,7 @@ portfolioServer <- function(id, data, left, right) {
                      {
                        wts <- c(input$s1wght,input$s2wght,input$s3wght,input$s4wght)
                        
-                       stock_returns_monthly <- c(input$Stock1,input$Stock2,input$Stock3,input$Stock4) %>%
-                         tq_get(get  = "stock.prices",
-                                from = input$dates[1],
-                                to   = input$dates[2]) %>%
+                       stock_returns_monthly <- stocks() %>%
                          group_by(symbol) %>%
                          tq_transmute(select     = adjusted, 
                                       mutate_fun = periodReturn, 

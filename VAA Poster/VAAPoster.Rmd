@@ -31,14 +31,20 @@ column_numbers: 3
 output: 
   posterdown::posterdown_betterport:
     self_contained: false
+  html_document:
+    css: custom.css
 bibliography: packages.bib
 ---
 
-```{css, echo=FALSE}
-.poster_wrap .main_bottom img{
-height: 900;
+<style>
+#main-img-left, #main-img-center, #main-img-right {
+ width: 20%;
 }
-main {text-align:center}
+</style>
+
+```{r echo=FALSE, eval=FALSE}
+library(pagedown)
+pagedown::chrome_print("VAP_poster.html")
 ```
 
 ```{r setup, include=FALSE}

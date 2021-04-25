@@ -376,9 +376,12 @@ forecastServer <- function(id, data, left, right) {
             set_names(c("date", "value")) 
           
           if (input$differencing > 0 ) {
+            yLabel = "Price Difference"
             stock_tbl <- stock_tbl %>%
               mutate(value = diff_vec(value, lag = input$differencing)) %>%
               mutate(value = replace_na(value, 0))
+          } else {
+            yLabel = "Price"
           }
           
           days_diff <- as.numeric(difftime(input$dates[2], input$dates[1], units = "days"))
@@ -545,6 +548,8 @@ forecastServer <- function(id, data, left, right) {
           #   layout(colorway = c('#f3cec9', '#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844')) %>%
           #   layout(plot_bgcolor='rgb(254, 247, 234)') 
           
+          
+          
           forecast_plots <- forecast_table %>%
             filter(.model_desc != "ACTUAL") %>%
             plot_modeltime_forecast(.facet_vars = .model_desc, 
@@ -557,7 +562,8 @@ forecastServer <- function(id, data, left, right) {
                         select(.index, .value),
                       color = "#2c3e50",
                       size = 0.5) +
-            labs(title = paste("Forecast Validation Plot for", input$stock), subtitle = "From and To") +
+            labs(title = paste("Forecast Validation Plot for", input$stock),
+                 y = yLabel) +
             scale_colour_manual(values = c("#e31a1c", "#18bc9c", "#ccbe93", "#a6cee3",
                                            "#1f78b4", "#b2df8a", "#fb9a99", "#fdbf6f")) +
             theme(panel.spacing = unit(0.25, "lines"),
@@ -570,7 +576,8 @@ forecastServer <- function(id, data, left, right) {
                                     .legend_show = TRUE,
                                     .legend_max_width = 25,
                                     .conf_interval_show = FALSE) +
-            labs(title = paste("Forecast Validation Plot for", input$stock), subtitle = "From and To")
+            labs(title = paste("Forecast Validation Plot for", input$stock),
+                 y = yLabel)
           
           forecast_accuracy_table <- calibration_table %>%
             modeltime_accuracy() %>%
@@ -619,7 +626,8 @@ forecastServer <- function(id, data, left, right) {
                         select(.index, .value),
                       color = "#2c3e50",
                       size = 0.5) +
-            labs(title = paste("Forecast Plot for", input$stock), subtitle = "From and To") +
+            labs(title = paste("Forecast Plot for", input$stock),
+                 y = yLabel) +
             scale_colour_manual(values = c("#e31a1c", "#18bc9c", "#ccbe93", "#a6cee3",
                                            "#1f78b4", "#b2df8a", "#fb9a99", "#fdbf6f")) +
             theme(panel.spacing = unit(0.25, "lines"))
@@ -629,7 +637,8 @@ forecastServer <- function(id, data, left, right) {
                                     .legend_show = TRUE,
                                     .legend_max_width = 25,
                                     .conf_interval_show = FALSE) +
-            labs(title = paste("Forecast Plot for", input$stock), subtitle = "From and To")
+            labs(title = paste("Forecast Plot for", input$stock),
+                 y = yLabel)
           
           residuals_table <- calibration_table %>%
             modeltime_residuals()
@@ -641,7 +650,8 @@ forecastServer <- function(id, data, left, right) {
                                      .facet_ncol = 2, 
                                      .interactive = FALSE,
                                      .facet_scales = "fixed") +
-            labs(title = paste("Residuals Plot for", input$stock), subtitle = "From and To") +
+            labs(title = paste("Residuals Plot for", input$stock),
+                 y = "Residuals") +
             scale_colour_manual(values = c("#e31a1c", "#18bc9c", "#ccbe93", "#a6cee3",
                                            "#1f78b4", "#b2df8a", "#fb9a99", "#fdbf6f")) +
             theme(panel.spacing = unit(0.25, "lines"),
@@ -651,7 +661,8 @@ forecastServer <- function(id, data, left, right) {
             plot_modeltime_residuals(.type = "timeplot",
                                      .interactive = FALSE,
                                      .legend_max_width = 25) +
-            labs(title = paste("Residuals Plot for", input$stock), subtitle = "From and To") +
+            labs(title = paste("Residuals Plot for", input$stock),
+                 y = "Residuals") +
             scale_colour_manual(values = c("#e31a1c", "#18bc9c", "#ccbe93", "#a6cee3",
                                            "#1f78b4", "#b2df8a", "#fb9a99", "#fdbf6f"))
             

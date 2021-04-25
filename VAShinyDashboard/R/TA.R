@@ -46,20 +46,15 @@ TAUI <- function(id) {
               "Averages - Elastic volume-weighted moving averages" = "evwma",
               "Simple Moving Average +Bollinger Bands" = "bollinger"
             )),
-          
-          radioButtons(
-            inputId = ns("Stocks"),
-            label   = "Select one stock:",
-            choices = c(
-              "Apple" = tickers[1], 
-              "Microsoft"= tickers[2],
-              "Bank of America" = tickers[3],
-              "Jp Morgan" = tickers[4],
-              "American Airlines Group Inc" = tickers[5],
-              "Spirit Airlines Incorporated" = tickers[6],
-              "Johnson & Johnson" = tickers[7],
-              "Pfzier"= tickers[8]))
-          
+          selectizeInput(
+            ns("stock"),
+            "Stock",
+            choices = c("AAPL", "MSFT", "BAC", "JPM", "AAL", "SAVE",
+                        "JNJ", "PFE"),
+            multiple = FALSE,
+            selected = c("AAPL"),
+            options = list(maxItems = 1, create = TRUE)
+          )
       ),       
       
       box(title = "Technical Analysis", status = "success", solidHeader = TRUE,width = 9,
@@ -75,11 +70,13 @@ TAServer <- function(id, data, left, right) {
   moduleServer(
     id,
     function(input, output, session) {
+      stock <- reactive(tq_get(input$stock, get = "stock.prices", 
+                               from = format(input$dates[1]), to  = format(input$dates[2])))
+      
       output$plot<-renderPlot({
         
         if(input$Chart == "bollinger"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>= (input$dates[2]-weeks(30))) %>%
             filter(date<= input$dates[2]) %>%
             ggplot(aes(x = date, y = close, open = open,
@@ -102,8 +99,7 @@ TAServer <- function(id, data, left, right) {
         }
         
         else if(input$Chart == "candlestick"){        
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[1]) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y =close)) +
@@ -123,8 +119,7 @@ TAServer <- function(id, data, left, right) {
             theme(axis.text.x = element_text(angle = 90, hjust = 1))
         }
         else  if (input$Chart == "volume"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[1]) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = volume)) +
@@ -142,8 +137,7 @@ TAServer <- function(id, data, left, right) {
         }
         
         else  if (input$Chart == "evwma"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[2]-250) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = close, volume = volume )) +
@@ -164,8 +158,7 @@ TAServer <- function(id, data, left, right) {
           
         }   
         else  if (input$Chart == "sma"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[2]-250) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = close)) +
@@ -186,8 +179,7 @@ TAServer <- function(id, data, left, right) {
           
         }   
         else  if (input$Chart == "dema"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[2]-250) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = close)) +
@@ -209,8 +201,7 @@ TAServer <- function(id, data, left, right) {
         }   
         
         else  if (input$Chart == "ema"){
-          prices %>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[2]-250) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = close)) +
@@ -233,8 +224,7 @@ TAServer <- function(id, data, left, right) {
           
         }     
         else  if (input$Chart == "returns"){
-          
-          tq_get(c(input$Stocks), get="stock.prices") %>%
+          stock() %>%
             tq_transmute(select=adjusted,
                          mutate_fun=periodReturn,
                          period="monthly",
@@ -254,8 +244,7 @@ TAServer <- function(id, data, left, right) {
           
         }
         else if (input$Chart == "prices"){
-          prices%>%
-            filter(symbol == input$Stocks) %>%
+          stock() %>%
             filter(date>=input$dates[1]) %>%
             filter(date<=input$dates[2]) %>%
             ggplot(aes(x = date, y = close)) +
@@ -271,9 +260,7 @@ TAServer <- function(id, data, left, right) {
             theme(axis.text.x = element_text(angle = 90, hjust = 1))
         }
         else  if (input$Chart == "returns_yearly"){
-          
-          
-          tq_get(c(input$Stocks), get="stock.prices") %>%
+          stock() %>%
             tq_transmute(select=adjusted,
                          mutate_fun=periodReturn,
                          period="yearly",

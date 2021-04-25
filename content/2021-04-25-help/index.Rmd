@@ -29,7 +29,7 @@ knitr::include_graphics("images/explore_guide1.png")
 
 1. Start by selecting up to 4 stock symbols from the pre-defined list of the `Select Stocks` field. It's possible to query stock symbols which are not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this value
 
-```{r, echo=FALSE, out.width="40%", fig.align="center"}
+```{r, echo=FALSE, out.width="30%", fig.align="center"}
 knitr::include_graphics("images/explore_guide2.png")
 ```
 
@@ -43,7 +43,7 @@ knitr::include_graphics("images/explore_guide4.png")
 4. At the top corner of each section, there is an icon to collapse the section so user can choose to hide the charts they don't want to see.
 5. To configure each chart type, click on the cog icon at the top right corner of the chart's section to display the sub-menu, which contains all the parameters corresponding to that particular chart type.
 
-```{r, echo=FALSE, out.width="100%", fig.align="center"}
+```{r, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("images/explore_guide3.png")
 ```
 
@@ -75,14 +75,17 @@ knitr::include_graphics("images/ta_guide1.png")
 
 |       As the actual mathematical and technical definition of the averages are beyond of the scope of this user guide, please visit this link to understand what they mean before analysing the chart: https://business-science.github.io/tidyquant/reference/geom_ma.html
 
-4. Select the Stock you wish to analyze by clicking on the radio button
+4. Select 1 stock symbols from the pre-defined list of the `Select Stocks` field. It's possible to type in a stock that is not in the list by typing its symbol. If the stock symbol indicated is  not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this value
 
 ```{r, echo=FALSE, out.width="40%", fig.align="center"}
-knitr::include_graphics("images/ta_guide2.png")
+knitr::include_graphics("images/TAnewstock.jpg")
 ```
 
+```{r, echo=FALSE, out.width="40%", fig.align="center"}
+knitr::include_graphics("images/TAexistingstock.jpg")
+```
 
-5. Click Different Radio buttons to see the different stocks for the same chart
+5. You can select different stocks as in 4. above for the same chart
 6. If you want to view different charts for the same stock just select a different chart from the “Single Stock Analysis-Charts”.
 7. To Zoom into different date periods for the same stock, adjust the date range.
 
@@ -99,13 +102,13 @@ knitr::include_graphics("images/ta_guide4.png")
 
 1. Click the Tab –<Analysis > - and select the tab <Portfolio Analysis>
 2. Select the Start and End Date for the analysis of your portfolio stocks- this will only affect some of the charts.
-3. Select from the drop down menu -up to 4 stocks you want to show in one chart
+3. Select from the drop down menu -up to 4 stocks you want to show in one chart. If the interested stock is not in the list, you can typ in your own stock symbol. If the stock symbol indicated is  not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this value
 
 ```{r, echo=FALSE, out.width="30%", fig.align="center"}
-knitr::include_graphics("images/ta_guide45.png")
+knitr::include_graphics("images/TAPornewstock.jpg")
 ```
 
-4. After choosing up to 4 stocks, you can select any 4 charts to view all stocks performance together by selecting from the drop down menu on the - Portfolio Analysis – Charts. There are 4 possible charts:
+4. After choosing up to 4 stocks, you can select any of the following 4 charts to view all stocks performance together by selecting from the drop down menu on the - Portfolio Analysis – Charts. There are 4 possible charts:
     - Closing Prices Line Chart
     -	Candlestick Chart- last 30 days
     -	Moving Average (Here Simple Moving Average is charted ) – last 1 year
@@ -121,9 +124,9 @@ knitr::include_graphics("images/ta_guide5.png")
 knitr::include_graphics("images/ta_guide6.png")
 ```
 
-  a. Select the stocks you want to include in the portfolio and update the relative weights. In the example above, I wanted to include Apple/Microsoft/Bank Of America – you my portfolio analysis. I selected the weightage as 0.1, 0.1,0.1 – means that each of the stock will be about 33.3% of my portfolio. To have eg. APPLE has 50 percent of your portfolio, you will use the weights 0.2 for APPLE, and 0.1 for Microsoft & Bank of America.
+  a. Select the stocks you want to include in the portfolio and update the relative weights. In the example above, I wanted to include Apple/Microsoft/Bank Of America – you my portfolio analysis. I selected the weightage as 0.1, 0.1,0.1 – means that each of the stock will be about 33.3% of my portfolio. To have eg. APPLE has 50 percent of your portfolio, you will use the weights 0.2 for APPLE, and 0.1 for Microsoft & Bank of America. If the required stock is not in this list you can also type in your preferred symbol. If the stock symbol indicated is  not in the list by typing into the field and add the value. If the stock symbol cannot be found on Yahoo Finance, the application will ignore this value. 
   b. The weights are relative and DO NOT need to add up to 1.
-  c. There is a 4th stock “JP MORGON” which was given a weightage of 0, this will NOT be included in my portfolio charting.
+  c. If theres is a stock specified, but given a weightage of 0, this will NOT be included in my portfolio charting.
     
 ```{r, echo=FALSE, out.width="30%", fig.align="center"}
 knitr::include_graphics("images/ta_guide7.png")
@@ -168,19 +171,19 @@ The main visualization section of this module contains 3 main components: Indivi
 
 In the Individual Models component, it's possible to switch between the 3 types of charts: validation, forecast and residuals by selecting one of the 3 tabs at the top of the section.
 
-```{r, echo=FALSE, out.width="100%", fig.align="center"}
+```{r, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("images/fore_guide3.png")
 ```
 
 The Multiple Models component also has the same 3 tabs to be selected as the individual models component. Since the multiple models charts are displaying many lines, user can hide the lines of some models by clicking on the model names in the Legend. 
 
-```{r, echo=FALSE, out.width="100%", fig.align="center"}
+```{r, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("images/fore_guide4.png")
 ```
 
 The last component of the Forecast visualization is the Models Performance table, which can be sorted by clicking on any of the table header.
 
-```{r, echo=FALSE, out.width="100%", fig.align="center"}
+```{r, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("images/fore_guide5.png")
 ```
 
