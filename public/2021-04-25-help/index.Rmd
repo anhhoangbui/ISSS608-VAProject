@@ -1,5 +1,5 @@
 ---
-title: Manual
+title: Guide
 author: ''
 date: '2021-04-25'
 slug: []

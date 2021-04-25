@@ -1,7 +1,7 @@
 ---
 background: images/bg.jpg
-description: Comparing the performance of many stocks in a single visualization can be time consuming, especially if you want to do it over and over again. With the help of R, Shiny and the availability many open source R packaged, you can easily create and track a stock portfolio to see how individual stocks perform over time. For a beginner investor there will at least three group of functions he will need
+description: The individual investor is often overwhelmed with data and information with no tools to analyze, visualize or forecast stock performance without subscribing to expensive tools. The Simple Stock Analyzer (SSA), a highly interactive and visually driven application that empowers the individual investor with a simple to use graphical user interface built with R and Shiny.
 
 fa: fas fa-chart-line
-title: Simple Stock Analyzer - A Visually Driven Stock Analysis And Forecasting Application
+title: Simple Stock Analyzer
 ---

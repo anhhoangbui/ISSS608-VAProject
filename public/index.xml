@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Stock Analysis &amp; Forecasting on Our Project Web Site</title>
+    <title>Simple Stock Analyzer on Our Project Web Site</title>
     <link>https://isss608stock.netlify.app/</link>
-    <description>Recent content in Stock Analysis &amp; Forecasting on Our Project Web Site</description>
+    <description>Recent content in Simple Stock Analyzer on Our Project Web Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://isss608stock.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Manual</title>
+      <title>Guide</title>
       <link>https://isss608stock.netlify.app/2021-04-25-help/</link>
       <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
@@ -19,7 +19,7 @@
     <item>
       <title>Paper</title>
       <link>https://isss608stock.netlify.app/2021-04-25-paper/</link>
-      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://isss608stock.netlify.app/2021-04-25-paper/</guid>
       <description>The project research paper can be downloaded HERE</description>
@@ -28,7 +28,7 @@
     <item>
       <title>Poster</title>
       <link>https://isss608stock.netlify.app/2021-04-24-poster/</link>
-      <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://isss608stock.netlify.app/2021-04-24-poster/</guid>
       <description>The HTML version of the poster can be viewed here HERE</description>
@@ -37,7 +37,7 @@
     <item>
       <title>Application</title>
       <link>https://isss608stock.netlify.app/2021-04-24-application/</link>
-      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 22 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>https://isss608stock.netlify.app/2021-04-24-application/</guid>
       <description>The Simple Stock Analyzer application is available at here
