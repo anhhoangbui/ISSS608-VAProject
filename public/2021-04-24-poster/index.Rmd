@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The HTML version of the poster can be viewed here [HERE](https://isss608stock.netlify.app/VAA_Poster/VAAPoster.html)
 
-```{r, echo=FALSE, out.width="900px", fig.align="center"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
 knitr::include_graphics("images/poster.png")
 ```
 
